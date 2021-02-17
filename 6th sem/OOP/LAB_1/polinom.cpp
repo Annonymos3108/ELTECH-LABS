@@ -21,13 +21,13 @@ std::ostream& operator<< (std::ostream& os, Polinom& p) {
 		number* roots = p.Calculate();
 		if (roots == nullptr) return os;
 		//два корня
-		if (roots[0] != NULL && roots[1] != NULL) {
+		if (roots[2] != false && roots[3] != false) {
 			std::cout << "p(x)=" << "(x" << (roots[0] >= 0 ? "-" : "+") << abs(roots[0]) <<
 				")(x" << (roots[1] >= 0 ? "-" : "+") << abs(roots[1]) << ")" << std::endl;
 		}
 
 		//один корень
-		if (roots[0] != NULL && roots[1] == NULL) {
+		if (roots[2] != false && roots[3] == false) {
 			std::cout << "p(x)=" << "(x" << (roots[0] >= 0 ? "-" : "+") << abs(roots[0]) <<
 				")^2" << std::endl;
 		}
@@ -47,7 +47,9 @@ void Polinom::setPrintMode(EPrintMode mode)
 
 number* Polinom::Calculate()
 {
-	number* roots = new number[2];
+	//2 аттрибуты, 2 значения
+	number *roots = new number[4]; 
+	
 	//при Д>0
 	number d = ((b * b) - (4 * a * c));
 	if (d > 0) //Если дискриминант больше 0
@@ -57,6 +59,8 @@ number* Polinom::Calculate()
 
 		if (a*roots[0]*roots[0] + b*roots[0] + c == 0 && 
 			a * roots[1] * roots[1] + b * roots[1] + c == 0) {
+			roots[2] = true;
+			roots[3] = true;
 			std::cout << "Первый корень равен " << roots[0] << std::endl;
 			std::cout << "Второй корень равен " << roots[1] << std::endl;
 			return roots;
@@ -72,7 +76,8 @@ number* Polinom::Calculate()
 	if (d == 0)
 	{
 		roots[0] = (-1 * b) / (2 * a);
-		roots[1] = NULL;
+		roots[2] = true;
+		roots[3] = false;
 		if (a * roots[0] * roots[0] + b * roots[0] + c == 0) {
 			std::cout << "Корень равен " << roots[0] << std::endl;
 			return roots;
