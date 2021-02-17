@@ -1,4 +1,4 @@
-﻿//Object-Oriented Programming
+﻿//Object-Oriented Programming /6th sem
 //Practice One
 
 #include "application.h"
