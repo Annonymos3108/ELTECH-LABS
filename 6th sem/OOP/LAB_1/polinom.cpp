@@ -18,9 +18,9 @@ std::ostream& operator<< (std::ostream& os, Polinom& p) {
 	}
 	else
 	{
-		number* roots = nullptr;
+		number roots[2];
 		int count = p.Calculate(roots);
-		if (roots == nullptr) return os;
+		if (count == 0) return os;
 		//два корня
 		if (count == 2) {
 			std::cout << "p(x)=" << "(x" << (roots[0] >= 0 ? "-" : "+") << abs(roots[0]) <<
@@ -46,7 +46,7 @@ void Polinom::setPrintMode(EPrintMode mode)
 	printMode = mode;
 };
 
-int Polinom::Calculate(number* roots)
+int Polinom::Calculate(number *roots)
 {
 	//при Д>0
 	number d = ((b * b) - (4 * a * c));

@@ -25,7 +25,7 @@ int Application::exec()
 
     int ch, count = 0;
     number a = 1, b = 2, c = 1, x1, x2;
-    number *roots = nullptr;
+    number roots[2];
     while (true)
     {
         ch = Menu();
@@ -70,6 +70,5 @@ int Application::exec()
             break;
         }
     }
-    delete[] roots;
     return 0;
 };
