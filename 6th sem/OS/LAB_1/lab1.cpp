@@ -20,7 +20,7 @@ void *thread_func_1(void *arg)
         printf("1\n");
         sleep(1);
     }
-    int* returnCode = new int(2);
+    int* returnCode = new int(3);
     printf("Thread 1 was ended...\n");
     pthread_exit(returnCode);
 }
@@ -35,7 +35,7 @@ void *thread_func_2(void *arg)
         printf("2\n");
         sleep(1);
     }
-    int* returnCode = new int(3);
+    int* returnCode = new int(4);
     printf("Thread 2 was ended...\n");
     pthread_exit(returnCode);
 }
