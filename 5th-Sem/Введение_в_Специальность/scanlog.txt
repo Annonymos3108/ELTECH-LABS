@@ -1,0 +1,43 @@
+C:\Program Files\ClamAV\AppHostRegistrationVerifier.exe: Win.Trojan.Cassandra.UNOFFICIAL FOUND
+C:\Program Files\ClamAV\clam.ico: OK
+C:\Program Files\ClamAV\clambc.exe: OK
+C:\Program Files\ClamAV\clamconf.exe: OK
+C:\Program Files\ClamAV\clamd.conf: OK
+C:\Program Files\ClamAV\clamd.exe: OK
+C:\Program Files\ClamAV\clamdscan.exe: OK
+C:\Program Files\ClamAV\clamscan.exe: OK
+C:\Program Files\ClamAV\clamsubmit.exe: OK
+C:\Program Files\ClamAV\freshclam.conf: OK
+C:\Program Files\ClamAV\freshclam.exe: OK
+C:\Program Files\ClamAV\json-c.dll: OK
+C:\Program Files\ClamAV\libbz2.dll: OK
+C:\Program Files\ClamAV\libclamav.dll: OK
+C:\Program Files\ClamAV\libclamunrar.dll: OK
+C:\Program Files\ClamAV\libclamunrar_iface.dll: OK
+C:\Program Files\ClamAV\libcrypto-1_1-x64.dll: OK
+C:\Program Files\ClamAV\libcurl.dll: OK
+C:\Program Files\ClamAV\libfreshclam.dll: OK
+C:\Program Files\ClamAV\libssh2.dll: OK
+C:\Program Files\ClamAV\libssl-1_1-x64.dll: OK
+C:\Program Files\ClamAV\libxml2.dll: OK
+C:\Program Files\ClamAV\main.ndb: OK
+C:\Program Files\ClamAV\mspack.dll: OK
+C:\Program Files\ClamAV\mysig.ndb: OK
+C:\Program Files\ClamAV\nghttp2.dll: OK
+C:\Program Files\ClamAV\pcre2-8.dll: OK
+C:\Program Files\ClamAV\pthreadVC2.dll: OK
+C:\Program Files\ClamAV\README.md: OK
+C:\Program Files\ClamAV\scanlog.txt: OK
+C:\Program Files\ClamAV\sigtool.exe: OK
+C:\Program Files\ClamAV\unins000.dat: OK
+C:\Program Files\ClamAV\unins000.exe: OK
+
+----------- SCAN SUMMARY -----------
+Known viruses: 100320
+Engine version: 0.102.1
+Scanned directories: 1
+Scanned files: 35
+Infected files: 1
+Data scanned: 39.25 MB
+Data read: 38.71 MB (ratio 1.01:1)
+Time: 4.153 sec (0 m 4 s)

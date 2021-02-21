@@ -1,0 +1,5 @@
+A bitmap is a type of memory organization or image file format used to store digital images
+The term bitmap comes from the computer programming terminology, meaning just a map of bits
+a spatially mapped array of bits Now along with pixmap it commonly refers to the similar 
+concept of a spatially mapped array of pixels Raster images in general may be referred to 
+as bitmaps or pixmaps whether synthetic or photographic in files or memory

@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{06ADC24B-114D-4F8A-BDA8-E4079FF05A1E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Conference</RootNamespace>
+    <AssemblyName>Conference</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>CBEE5A53BC74A3C89D064F5D365B1996ADFC1301</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Conference_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConferenceDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConferenceDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ConferenceDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConferenceDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteAutor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteAutor.Designer.cs">
+      <DependentUpon>DeleteAutor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteConference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteConference.Designer.cs">
+      <DependentUpon>DeleteConference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteDoklad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteDoklad.Designer.cs">
+      <DependentUpon>DeleteDoklad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteHotel.Designer.cs">
+      <DependentUpon>DeleteHotel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteUchastnik.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteUchastnik.Designer.cs">
+      <DependentUpon>DeleteUchastnik.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mainForm.Designer.cs">
+      <DependentUpon>mainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrgVznosDateInterval.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrgVznosDateInterval.Designer.cs">
+      <DependentUpon>OrgVznosDateInterval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrgVznosDateSpisok.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrgVznosDateSpisok.Designer.cs">
+      <DependentUpon>OrgVznosDateSpisok.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PervoePriglashenie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PervoePriglashenie.Designer.cs">
+      <DependentUpon>PervoePriglashenie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCHEME.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SCHEME.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TeseusDokladus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeseusDokladus.Designer.cs">
+      <DependentUpon>TeseusDokladus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TrueHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrueHotel.Designer.cs">
+      <DependentUpon>TrueHotel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateAutor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateAutor.Designer.cs">
+      <DependentUpon>UpdateAutor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateConference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateConference.Designer.cs">
+      <DependentUpon>UpdateConference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateDoklad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateDoklad.Designer.cs">
+      <DependentUpon>UpdateDoklad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateHotel.Designer.cs">
+      <DependentUpon>UpdateHotel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateUchastnik.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateUchastnik.Designer.cs">
+      <DependentUpon>UpdateUchastnik.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteAutor.resx">
+      <DependentUpon>DeleteAutor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteConference.resx">
+      <DependentUpon>DeleteConference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteDoklad.resx">
+      <DependentUpon>DeleteDoklad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteHotel.resx">
+      <DependentUpon>DeleteHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteUchastnik.resx">
+      <DependentUpon>DeleteUchastnik.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mainForm.resx">
+      <DependentUpon>mainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrgVznosDateInterval.resx">
+      <DependentUpon>OrgVznosDateInterval.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrgVznosDateSpisok.resx">
+      <DependentUpon>OrgVznosDateSpisok.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PervoePriglashenie.resx">
+      <DependentUpon>PervoePriglashenie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="TeseusDokladus.resx">
+      <DependentUpon>TeseusDokladus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrueHotel.resx">
+      <DependentUpon>TrueHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateAutor.resx">
+      <DependentUpon>UpdateAutor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateConference.resx">
+      <DependentUpon>UpdateConference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateDoklad.resx">
+      <DependentUpon>UpdateDoklad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateHotel.resx">
+      <DependentUpon>UpdateHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateUchastnik.resx">
+      <DependentUpon>UpdateUchastnik.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ConferenceDataSet.xsc">
+      <DependentUpon>ConferenceDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ConferenceDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ConferenceDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ConferenceDataSet.xss">
+      <DependentUpon>ConferenceDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ConferenceDataSet1.xsc">
+      <DependentUpon>ConferenceDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="ConferenceDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ConferenceDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ConferenceDataSet1.xss">
+      <DependentUpon>ConferenceDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="Conference_TemporaryKey.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="SCHEME.xsc">
+      <DependentUpon>SCHEME.xsd</DependentUpon>
+    </None>
+    <None Include="SCHEME.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SCHEME.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SCHEME.xss">
+      <DependentUpon>SCHEME.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Conference.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Conference_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>Conference.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
