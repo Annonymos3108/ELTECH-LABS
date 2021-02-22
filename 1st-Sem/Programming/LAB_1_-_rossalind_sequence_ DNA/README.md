@@ -26,7 +26,7 @@ GGACTGGGAACCTGCGGGCAGTAGGTGGAAT
 
 **Пример возвращаемого значения:**
 
-```
+```js
 >Rosalind_Sequence_0808
 60.92%
 ```
