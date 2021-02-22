@@ -1,2 +1,0 @@
-a.exe s.txt encode p.bmp 5
-a.exe t.txt decode p.bmp 5
