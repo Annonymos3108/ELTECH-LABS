@@ -2,14 +2,24 @@
 
 Rational::Rational() {};
 
-Rational::Rational(const int& a_) 
+Rational::Rational(const int& a_)
 {
     a = a_;
     b = 1;
 }
 
+int Rational::getA()
+{
+    return a;
+}
+
+unsigned int Rational::getB()
+{
+    return b;
+}
+
 //НОД
-int getNod(int a, int b) 
+int getNod(int a, int b)
 {
     return b ? getNod(b, a % b) : a;
 }
@@ -35,9 +45,9 @@ Rational sqrt(Rational rt)
         rt.b = b;
         return rt;
     }
-    else 
+    else
     {
-        std::cout << "Ошибка, квадратный корень из дискриминанта не " << 
+        std::cout << "Ошибка, квадратный корень из дискриминанта не " <<
             "рациональная дробь!" << std::endl;
         rt.a = 1;
         rt.b = 2;
@@ -49,57 +59,71 @@ Rational sqrt(Rational rt)
 Rational abs(Rational rt)
 {
     rt.a = ::abs(rt.a);
+    rt.b = rt.b;
     return rt;
 }
 
 std::istream& operator>> (std::istream& is, Rational& rt)
 {
     do {
-        bool flag = false;
         is >> rt.a >> rt.b;
         if ((rt.b <= 1)) {
-            std::cout << "Знаменатель не может быть 0, 1 или отрицательным, повторите попытку" << 
+            std::cout << "Знаменатель не может быть 0, 1 или отрицательным, повторите попытку" <<
                 std::endl;
             continue;
         }
         // если а без остатка делится на b
-        if ((double(int((double(rt.a)/double(rt.b)))) == (double(rt.a)/double(rt.b))))
+        if ((double(int((double(rt.a) / double(rt.b)))) == (double(rt.a) / double(rt.b))))
         {
-            std::cout << "Введеные числа НЕ образуют рациональную дробь, повторите попытку" << 
+            std::cout << "Введеные числа НЕ образуют рациональную дробь, повторите попытку" <<
                 std::endl;
             continue;
         }
         return is;
-    } while (true);    
+    } while (true);
 }
 
 std::ostream& operator<< (std::ostream& os, Rational rt)
 {
+    //вызвать функцию нахождения НОД-а
+    //проверить можно ли сократить дробь
+    //если да, то скоратить, потом вывести на экран
+    int nod = ::abs(getNod(rt.a, rt.b));
+    if (nod >= 1) // НОД есть, сокращаем
+    {
+        rt.a /= nod;
+        rt.b /= nod;
+    }
     os << "(" << rt.a << "/" << rt.b << ")";
     return os;
 }
 
+
 Rational Rational::operator- ()
 {
-    return a *= -1;
+    Rational rt;
+    rt.a = a * (-1);
+    rt.b = b;
+    return rt;
 }
 
 //умножение рациональной дроби с целым
 Rational Rational::operator* (int integer)
 {
     Rational rational;
-    rational.a = a*integer;
+    rational.a = a * integer;
+    rational.b = b;
     //вызвать функцию нахождения НОД-а
     //проверить можно ли сократить дробь после умножения
     int nod = getNod(rational.a, rational.b);
-    if (nod == 1) // НОД-а нет
-    {
-        return rational;
-    }
-    else // НОД есть, сокращаем
+    if (nod >= 1) // НОД есть, сокращаем
     {
         rational.a /= nod;
         rational.b /= nod;
+        return rational;
+    }
+    else 
+    {        
         return rational;
     }
 }
@@ -110,23 +134,23 @@ Rational Rational::operator+ (Rational rt)
     Rational rational;
     /*
      a     c     a*d + b*c         a это a     c это rt.a         a*d + b*c будет a*rt.b + b*rt.a
-    --- + --- = -----------       ---------   ------------      ----------------------------------  
+    --- + --- = -----------       ---------   ------------      ----------------------------------
      b     d       b*d             b это b     d это rt.b               b*d будет b*rt.b
 
     */
-    rational.a = a*rt.b + b*rt.a;
-    rational.b = b*rt.b;
+    rational.a = a * rt.b + b * rt.a;
+    rational.b = b * rt.b;
     //вызвать функцию нахождения НОД-а
     //проверить можно ли сократить дробь после сложения дробей
     int nod = getNod(rational.a, rational.b);
-    if (nod == 1) // НОД-а нет
-    {
-        return rational;
-    }
-    else // НОД есть, сокращаем
+    if (nod >= 1) // НОД есть, сокращаем
     {
         rational.a /= nod;
         rational.b /= nod;
+        return rational;
+    }
+    else
+    {
         return rational;
     }
 }
@@ -137,23 +161,24 @@ Rational Rational::operator- (Rational rt)
     Rational rational;
     /*
      a     c     a*d - b*c         a это a     c это rt.a         a*d - b*c будет a*rt.b - b*rt.a
-    --- + --- = -----------       ---------   ------------      ----------------------------------  
+    --- + --- = -----------       ---------   ------------      ----------------------------------
      b     d       b*d             b это b     d это rt.b               b*d будет b*rt.b
 
     */
-    rational.a = a*rt.b - b*rt.a;
-    rational.b = b*rt.b;
+    
+    rational.a = a * rt.b - b * rt.a;
+    rational.b = b * rt.b;
     //вызвать функцию нахождения НОД-а
     //проверить можно ли сократить дробь после сложения дробей
     int nod = getNod(rational.a, rational.b);
-    if (nod == 1) // НОД-а нет
-    {
-        return rational;
-    }
-    else // НОД есть, сокращаем
+    if (nod >= 1) // НОД есть, сокращаем
     {
         rational.a /= nod;
         rational.b /= nod;
+        return rational;
+    }
+    else
+    {
         return rational;
     }
 }
@@ -162,19 +187,19 @@ Rational Rational::operator- (Rational rt)
 Rational Rational::operator* (Rational rt)
 {
     Rational rational;
-    rational.a = a*rt.a;
-    rational.b = b*rt.b;
+    rational.a = a * rt.a;
+    rational.b = b * rt.b;
     //вызвать функцию нахождения НОД-а
     //проверить можно ли сократить дробь после умножения
     int nod = getNod(rational.a, rational.b);
-    if (nod == 1) // НОД-а нет
-    {
-        return rational;
-    }
-    else // НОД есть, сокращаем
+    if (nod >= 1) // НОД есть, сокращаем
     {
         rational.a /= nod;
         rational.b /= nod;
+        return rational;
+    }
+    else
+    {
         return rational;
     }
 }
@@ -183,49 +208,49 @@ Rational Rational::operator* (Rational rt)
 Rational Rational::operator/ (Rational rt)
 {
     Rational rational;
-    rational.a = a*rt.b;
-    rational.b = b*rt.a;
+    rational.a = a * rt.b;
+    rational.b = b * rt.a;
     //вызвать функцию нахождения НОД-а
     //проверить можно ли сократить дробь после умножения
     int nod = getNod(rational.a, rational.b);
-    if (nod == 1) // НОД-а нет
-    {
-        return rational;
-    }
-    else // НОД есть, сокращаем
+    if (nod >= 1) // НОД есть, сокращаем
     {
         rational.a /= nod;
         rational.b /= nod;
         return rational;
     }
+    else
+    {
+        return rational;
+    }
 }
 
-bool Rational::operator== (Rational rt) 
+bool Rational::operator== (Rational rt)
 {
     return (a == rt.a) && (b == rt.b);
 }
 
-bool Rational::operator!= (Rational rt) 
+bool Rational::operator!= (Rational rt)
 {
     return (a != rt.a) || (b != rt.b);
 }
 
-bool Rational::operator>= (Rational rt) 
+bool Rational::operator>= (Rational rt)
 {
-    return ((double(a)/double(b)) >= (double(rt.a)/double(rt.b)));
+    return ((double(a) / double(b)) >= (double(rt.a) / double(rt.b)));
 }
 
-bool Rational::operator<= (Rational rt) 
+bool Rational::operator<= (Rational rt)
 {
-    return ((double(a)/double(b)) >= (double(rt.a)/double(rt.b)));
+    return ((double(a) / double(b)) >= (double(rt.a) / double(rt.b)));
 }
 
-bool Rational::operator> (Rational rt) 
+bool Rational::operator> (Rational rt)
 {
-    return ((double(a)/double(b)) > (double(rt.a)/double(rt.b)));
+    return ((double(a) / double(b)) > (double(rt.a) / double(rt.b)));
 }
 
-bool Rational::operator< (Rational rt) 
+bool Rational::operator< (Rational rt)
 {
-    return ((double(a)/double(b)) > (double(rt.a)/double(rt.b)));
+    return ((double(a) / double(b)) > (double(rt.a) / double(rt.b)));
 }

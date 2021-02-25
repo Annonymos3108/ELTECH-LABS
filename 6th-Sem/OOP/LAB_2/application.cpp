@@ -41,7 +41,7 @@ int Application::exec()
         case 2: {
             Polinom p(a, b, c);
             //прежде чем использовать указатель roots, надо проверить на nullptr
-            count = p.Calculate(roots); 
+            count = p.Calculate(roots);
             break;
         }
         case 3: {
