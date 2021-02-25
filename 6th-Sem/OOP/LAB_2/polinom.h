@@ -19,7 +19,7 @@ public:
 	friend std::ostream& operator<< (std::ostream&, Polinom&);
 	number value(number);
 	void setPrintMode(EPrintMode);
-	number* Calculate();
+	int Calculate(number*);
 };
 
 #endif

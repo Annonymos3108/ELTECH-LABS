@@ -23,8 +23,9 @@ int Application::exec()
         "и его значения для заданного аргумента х " <<
         "на множестве целых чисел.";
 
-    int ch;
+    int ch, count = 0;
     number a = 1, b = 2, c = 1, x1, x2;
+    number roots[2];
     while (true)
     {
         ch = Menu();
@@ -39,7 +40,8 @@ int Application::exec()
             break;
         case 2: {
             Polinom p(a, b, c);
-            p.Calculate();
+            //прежде чем использовать указатель roots, надо проверить на nullptr
+            count = p.Calculate(roots); 
             break;
         }
         case 3: {
