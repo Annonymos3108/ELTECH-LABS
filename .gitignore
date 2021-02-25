@@ -788,3 +788,4 @@ $RECYCLE.BIN/
 # Ionide (cross platform F# VS Code tools) working folder
 
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks,c,c++,csharp,assembler,vscode,visualstudio,linux,windows
+.vscode/settings.json
