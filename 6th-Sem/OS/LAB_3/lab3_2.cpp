@@ -1,19 +1,14 @@
-//lab 3_1_pipe2 // pipe
+//lab 3_2
+//pipe2
 //8363 NersisyanA
 
-#include <iostream>
 #include <stdio.h>      //std input output
 #include <pthread.h>    //pthread
 #include <unistd.h>     //uid
 #include <string.h>     //memset
-#include <string>
 #include <errno.h>      //perror
 #include <fcntl.h>      //O_NONBLOCK
 #include <pwd.h>        //passwd, getpwuid
-
-//#include <stdlib.h>     
-//#include <sys/types.h>
-
 
 /*
 struct passwd {
@@ -50,15 +45,14 @@ void *thread_func_1(void *arg)
         }        
         
         int message = sprintf(buf, "%s\n%s\n", pwent.pw_name, pwent.pw_shell);
-        
+
         ret = write(field[1], buf, message);
         if (ret == 0) {
             printf("End of file, write channel was closed");
             sleep(1);
         }
-        if (ret == -1) {
+        else if (ret == -1) {
             perror("write");
-            printf("\n\r");
             //exit(EXIT_FAILURE);
         }
         sleep(1);
@@ -92,9 +86,8 @@ void *thread_func_2(void *arg)
         else {
             printf("%s\n", buf);           
         }
-        memset(buf, 0, BUFF_SIZE);
         sleep(1);
-        
+        memset(buf, 0, BUFF_SIZE);
     }
     int* returnCode = new int(4);
     printf("\nRead thread was closed...\n");
@@ -110,17 +103,11 @@ int main()
     pthread_t thread1, thread2;
     
     //create pipe
-    result = pipe(field);
+    result = pipe2(field, O_NONBLOCK);
     if (result != 0) {      //linux man: 0 is ok, -1 is error
         perror("pipe2");
         return -1;
     }
-    
-    int fl1 = fcntl(field[0], F_GETFL);
-    int fl2 = fcntl(field[1], F_SETFL);
-
-    fcntl(field[0], F_GETFL, fl1 | O_NONBLOCK);
-    fcntl(field[1], F_SETFL, fl2 | O_NONBLOCK);
 
     //create threads
     result = pthread_create(&thread1, NULL, thread_func_1, (void*)&flag1);

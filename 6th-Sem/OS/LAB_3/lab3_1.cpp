@@ -1,4 +1,5 @@
-//lab 3_1_pipe2 // pipe
+//lab 3_1
+//pipe
 //8363 NersisyanA
 
 #include <stdio.h>      //std input output
@@ -8,10 +9,6 @@
 #include <errno.h>      //perror
 #include <fcntl.h>      //O_NONBLOCK
 #include <pwd.h>        //passwd, getpwuid
-
-//#include <stdlib.h>     
-//#include <sys/types.h>
-
 
 /*
 struct passwd {
@@ -106,9 +103,9 @@ int main()
     pthread_t thread1, thread2;
     
     //create pipe
-    result = pipe2(field, O_NONBLOCK);
+    result = pipe(field);
     if (result != 0) {      //linux man: 0 is ok, -1 is error
-        perror("pipe2");
+        perror("pipe");
         return -1;
     }
 
