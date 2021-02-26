@@ -41,6 +41,7 @@ void *thread_func_1(void *arg)
         // error on trywait
         else {
             perror("\nsem_trywait");
+            sleep(1);
             //exit(EXIT_FAILURE);
         }
     }
