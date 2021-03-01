@@ -1,4 +1,4 @@
-//lab 4_1
+//lab 4_1 program 1
 
 #include <unistd.h>
 #include <stdio.h>
