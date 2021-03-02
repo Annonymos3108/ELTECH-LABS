@@ -17,16 +17,16 @@ const int STACK_SIZE = 1024 * 1024;
 static int function(void* arg) {
     printf("parent  process ID: %d\n", getppid());
     printf("program process ID: %d\n", getpid());
-
+    extern char **environ;
     char* arg0 = (char*)arg;
 
     if (arg0 != NULL) {
         char* arg1 = arg0 + strlen(arg0) + 1;
         char* arg2 = arg1 + strlen(arg1) + 1;
-        execlp("./lab_04_1", arg0, arg1, arg2, NULL);
+        execle("./lab_4_1", arg0, arg1, arg2, NULL, environ);
     }
     else {
-        execle("./lab_04_1", "lab_04_1", getenv("PATH"), (void*)NULL);
+        execle("./lab4_1", "lab4_1", NULL, environ);
     }
 
     return 0;

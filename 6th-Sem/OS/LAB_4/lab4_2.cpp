@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[], char** envp[]) {
     printf("lab4_2 start\n");
 
     pid_t pid = fork();
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
         printf("Parent  process ID from lab4_2: %d\n", getppid());
         printf("Program process ID from lab4_2: %d\n", getpid());
 
-        execle("./lab_04_1", "0", "1", "2", "3", getenv("PATH"), (void*)NULL);
+        execle("./lab4_1", "0", "1", "2", "3", NULL, envp);
     }
 
     printf("lab4_2 end\n");
