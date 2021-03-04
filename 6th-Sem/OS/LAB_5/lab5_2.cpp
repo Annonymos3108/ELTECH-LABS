@@ -1,3 +1,5 @@
+// lab5_2
+
 #include <stdio.h>
 #include <pthread.h>
 #include <string.h>
