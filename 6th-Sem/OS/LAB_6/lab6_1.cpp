@@ -29,7 +29,7 @@ void* function(void* data) {
         int semStatus_r;
         sem_getvalue(semaphoreID_r, &semStatus_r);
 
-        if (semStatus_r == 0) {
+        if (semStatus_r == 1) {
             count = 0;
             int message = random() % 1000;
 
@@ -42,7 +42,7 @@ void* function(void* data) {
             sem_post(semaphoreID_w);
             sem_post(semaphoreID_r);
         }
-        else if (semStatus_r == 1) {
+        else if (semStatus_r == 0) {
             count++;
 
             if (count == 5) {
@@ -77,7 +77,7 @@ int main() {
     int semStatus_r;
     sem_getvalue(semaphoreID_r, &semStatus_r);
 
-    if (semStatus_r == 1) {
+    if (semStatus_r == 0) {
         sem_wait(semaphoreID_r);
     }
 
