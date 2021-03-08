@@ -29,7 +29,7 @@ void* function(void* data) {
         int semStatus_r;
         sem_getvalue(semaphoreID_r, &semStatus_r);
 
-        if (semStatus_r == 0) {
+        if (semStatus_r == 1) {
             count = 0;
             int message;
 
@@ -42,7 +42,7 @@ void* function(void* data) {
             sem_wait(semaphoreID_r);
             sem_post(semaphoreID_w);
         }
-        else if (semStatus_r == 1) {
+        else if (semStatus_r == 0) {
             count++;
 
             if (count == 5) {
@@ -73,13 +73,13 @@ int main() {
     ftruncate(shm, sizeof(int));
 
     shmPtr        = (int*)mmap(0, sizeof(int), PROT_WRITE | PROT_READ, MAP_SHARED, shm, 0);
-    semaphoreID_w = sem_open(semaphoreName_w, O_CREAT, 0644, 0);
-    semaphoreID_r = sem_open(semaphoreName_r, O_CREAT, 0644, 0);
+    semaphoreID_w = sem_open(semaphoreName_w, O_CREAT, 0644, 1);
+    semaphoreID_r = sem_open(semaphoreName_r, O_CREAT, 0644, 1);
 
     int semStatus_r;
     sem_getvalue(semaphoreID_r, &semStatus_r);
 
-    if (semStatus_r == 0) {
+    if (semStatus_r == 1) {
         sem_wait(semaphoreID_r);
     }
 
