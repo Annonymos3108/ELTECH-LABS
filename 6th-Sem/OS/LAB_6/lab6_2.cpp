@@ -73,8 +73,8 @@ int main() {
     ftruncate(shm, sizeof(int));
 
     shmPtr        = (int*)mmap(0, sizeof(int), PROT_WRITE | PROT_READ, MAP_SHARED, shm, 0);
-    semaphoreID_w = sem_open(semaphoreName_w, O_CREAT, 0644, 1);
-    semaphoreID_r = sem_open(semaphoreName_r, O_CREAT, 0644, 1);
+    semaphoreID_w = sem_open(semaphoreName_w, O_CREAT, 0644, 0);
+    semaphoreID_r = sem_open(semaphoreName_r, O_CREAT, 0644, 0);
 
     int semStatus_r;
     sem_getvalue(semaphoreID_r, &semStatus_r);
