@@ -1,4 +1,4 @@
-// lab 6_1 Writer
+// lab 6_1 Writer W
 
 #include <stdio.h>
 #include <pthread.h>

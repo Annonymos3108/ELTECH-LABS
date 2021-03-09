@@ -1,4 +1,4 @@
-// lab 6_2 Reader
+// lab 6_2 Reader R
 
 #include <stdio.h>
 #include <time.h>
