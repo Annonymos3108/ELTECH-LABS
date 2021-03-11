@@ -119,6 +119,6 @@ int main() {
     close(fd);
     unlink(FIFO_NAME);
 
-    printf("\nLab7_1 end");
+    printf("\nLab7_1 end\n");
     return 0;
 }

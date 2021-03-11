@@ -101,6 +101,6 @@ int main() {
 
     close(fd);
     unlink(FIFO_NAME);
-    printf("\nLab 7_2 end");
+    printf("\nLab 7_2 end\n");
     return 0;
 }
