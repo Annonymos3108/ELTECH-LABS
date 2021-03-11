@@ -32,7 +32,9 @@ pthread_t threadID_write;
 
 
 bool sig_handler(int signo) {
-    printf("\nSIGPIPE is gotten");
+    printf("\n\nSIGPIPE is gotten");
+    printf("\nReader is offline");
+    printf("\nPress <ENTER> to stop");
     fflush(stdout);
     sleep(1);
     return true;
@@ -41,27 +43,18 @@ bool sig_handler(int signo) {
 
 void* Writer(void* data) {
     char buf[BUFF_SIZE];
-    int  msg, res, count = 0;
+    int  msg, res;
     while (!flag) {
         if (signal(SIGPIPE, (__sighandler_t)sig_handler)) {
             msg = random() % 1000;
             int message = sprintf(buf, "Message: %d", msg);
             res = write(fd, buf, message);
             
-            if (res != -1) {
-                count = 0;
+            if (res != -1) {                
                 printf("\nWrite: %s", buf);
                 fflush(stdout);
             }
-        }
-        else {
-            count++;
-            if(count == 5) {
-                printf("Reader is offline\n");
-                printf("Press <ENTER> to stop\n");
-                pthread_exit(NULL);
-            }
-        }
+        }        
         sleep(1);
     }
     pthread_exit(NULL);
@@ -69,15 +62,20 @@ void* Writer(void* data) {
 
 
 void* OpenFifoThread(void* data) {
+    int res;
     while (!flag) {
         fd = open(FIFO_NAME, O_WRONLY | O_NONBLOCK | O_CREAT);
 
         if (fd == -1) {
-            printf("\n%s", strerror(errno));
+            perror("open");
             sleep(1);
         }
         else {
-            pthread_create(&threadID_write, NULL, Writer, NULL);
+            res = pthread_create(&threadID_write, NULL, Writer, NULL);
+            if (res != 0) {
+                perror("pthread_create");
+                //exit(EXIT_FAILURE);
+            }
             pthread_exit(NULL);
         }
     }
@@ -93,9 +91,8 @@ int main() {
     if (fifo == -1)
     {
         perror("mkfifo");
-        return -1;
-    }
-    
+        //exit(EXIT_FAILURE);
+    }    
 
     int result = pthread_create(&threadID_open, NULL, OpenFifoThread, NULL);
     if (result != 0) {

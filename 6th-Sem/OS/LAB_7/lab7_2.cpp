@@ -17,35 +17,34 @@ int  fd;
 char FIFO_NAME[] = {"/tmp/Black_pipe"};
 bool flag = false;
 
-pthread_t threadID_open;
+pthread_t threadID_open2;
 pthread_t threadID_read;
 
 
 void* Reader(void* data) {
     char buf[BUFF_SIZE] = {'\0'};
-    int count = 0, res;
+    int res, count = 0;
     while (!flag) {
         memset(buf, 0, BUFF_SIZE);
         res = read(fd, buf, BUFF_SIZE);
-        
-        if(res == 0)
-            perror("\nEOF (End of file)");
+
+        if(count == 5) {
+            printf("\nWriter is offline\nPress <ENTER> to stop");
+        }
+
         if(res == -1) {
             perror("read");
-            count++;
-            if(count == 5) {
-                printf("Writer is offline\n");
-                printf("Press <ENTER> to stop\n");
-                pthread_exit(NULL);
-            }
+            count++;            
         }
         if (res != -1) {
-            count = 0;
             if (*buf != 0) {
                 printf("\nRead: %s", buf);
                 fflush(stdout);
+                count = 0;
             }
-        }        
+            else 
+                count++;
+        }          
         sleep(1);
     }
     pthread_exit(NULL);
@@ -58,7 +57,7 @@ void* OpenFifoThread(void* data) {
         fd = open(FIFO_NAME, O_RDONLY | O_NONBLOCK | O_CREAT);
 
         if (fd == -1) {
-            printf("\n%s", strerror(errno));
+            perror("open");
             sleep(1);
         }
         else {
@@ -79,8 +78,13 @@ int main() {
     printf("\nPress <ENTER> to stop\n");
 
     int fifo = mkfifo(FIFO_NAME, 0666);
-
-    int result = pthread_create(&threadID_open, NULL, OpenFifoThread, NULL);
+    if (fifo == -1)
+    {
+        perror("mkfifo");
+        //exit(EXIT_FAILURE);
+    }
+    
+    int result = pthread_create(&threadID_open2, NULL, OpenFifoThread, NULL);
     if (result != 0) {
         perror("pthread_create");
         return -1;
