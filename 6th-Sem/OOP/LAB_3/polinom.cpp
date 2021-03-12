@@ -113,7 +113,7 @@ QString Polinom::Calculate(Polinom& p)
     int count = p.Calculate(roots);
 
     if (count == 0) {
-        qstr += "Полином не разложим над полем рациональных";
+        qstr += "Полином не разложим над\nполем рациональных";
     }
     else if (count == 1) {
         qstr += "Корень равен ";
