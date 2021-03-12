@@ -25,4 +25,4 @@ public:
     friend QString& operator<< (QString&, Polinom&);
 };
 
-#endif
+#endif // POLINOM_H

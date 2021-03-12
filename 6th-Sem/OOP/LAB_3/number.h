@@ -5,4 +5,4 @@
 
 typedef Rational number;
 
-#endif
+#endif // NUMBER_H

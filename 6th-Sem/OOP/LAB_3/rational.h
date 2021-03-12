@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <QString>
+#include <QMessageBox>
 
 #ifndef RATIONAL_H
 #define RATIONAL_H
@@ -40,4 +41,4 @@ public:
 
 };
 
-#endif
+#endif // RATIONAL_H

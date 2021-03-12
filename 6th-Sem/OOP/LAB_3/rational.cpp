@@ -73,8 +73,9 @@ Rational sqrt(Rational rt)
     }
     else
     {
-        std::cout << "Ошибка, квадратный корень из дискриминанта не " <<
-            "рациональная дробь!" << std::endl;
+        QMessageBox messageBox;
+        messageBox.critical(0,"Ошибка","Квадратный корень из дискриминанта не рациональная дробь!");
+        messageBox.setFixedSize(500,200);
         rt.a = 1;
         rt.b = 2;
         return rt;
