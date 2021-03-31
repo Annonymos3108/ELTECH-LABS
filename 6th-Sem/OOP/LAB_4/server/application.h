@@ -5,8 +5,6 @@
 #include <QCoreApplication>
 
 #include "communicator.h"
-#include "polinom.h"
-#include "common.h"
 
 class TApplication : public QCoreApplication
 {

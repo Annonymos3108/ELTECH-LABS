@@ -48,8 +48,6 @@ public:
 
     int getA();
     unsigned int getB();
-    static QChar getSeparator();
-
 };
 
 #endif // RATIONAL_H

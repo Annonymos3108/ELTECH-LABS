@@ -21,7 +21,7 @@ public:
 	void setPrintMode(EPrintMode);
     int Calculate(number*);
 
-    QString Calculate(Polinom&);
+    QString CalculateRoots();
     friend QString& operator<< (QString&, Polinom&);
 };
 

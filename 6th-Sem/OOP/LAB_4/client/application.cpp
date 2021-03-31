@@ -7,13 +7,11 @@ TApplication::TApplication(int argc, char *argv[])
                          QHostAddress("127.0.0.1"), 10000};
     comm = new TCommunicator(pars, this);
 
-    interface = new Interface();
+    interface = new TInterface();
     interface->show();
 
-    connect(comm,SIGNAL(recieved(QByteArray)),this,
-            SLOT(fromCommunicator(QByteArray)));
-    connect(interface,SIGNAL(request(QString)),
-            this,SLOT(toCommunicator(QString)));
+    connect(comm,SIGNAL(recieved(QByteArray)),this, SLOT(fromCommunicator(QByteArray)));
+    connect(interface,SIGNAL(request(QString)),this, SLOT(toCommunicator(QString)));
 
 }
 

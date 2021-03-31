@@ -6,9 +6,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 
-//#include "polinom.h"
-
-class Interface : public QWidget
+class TInterface : public QWidget
 {
     Q_OBJECT
 
@@ -28,19 +26,14 @@ class Interface : public QWidget
 
     QLabel *output;
 
-public:
-    Interface(QWidget *parent = nullptr);
-    ~Interface();
+//    friend QString& operator<< (QString&,const QString&);
 
+public:
+    TInterface(QWidget *parent = 0);
+    ~TInterface();
 
 public slots:
     void answer(QString);
-/*
-    void value();
-    void root();
-    void print_classic();
-    void print_canonic();
-*/
 
 private slots:
     void formRequest();

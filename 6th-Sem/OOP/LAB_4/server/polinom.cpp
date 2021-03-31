@@ -106,11 +106,11 @@ int Polinom::Calculate(number* roots)
 	}
 };
 
-QString Polinom::Calculate(Polinom& p)
+QString Polinom::CalculateRoots()
 {
     QString qstr("");
     number roots[2];
-    int count = p.Calculate(roots);
+    int count = Calculate(roots);
 
     if (count == 0) {
         qstr += "Полином не разложим над\nполем рациональных";

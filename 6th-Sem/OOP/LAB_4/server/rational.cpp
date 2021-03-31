@@ -27,11 +27,6 @@ unsigned int Rational::getB()
     return b;
 }
 
-QChar Rational::getSeparator()
-{
-    return SEPARATOR;
-}
-
 //НОД
 int getNod(int a, int b)
 {
@@ -116,8 +111,8 @@ QString& operator<<(QString& qstr, Rational rt)
 
 QByteArray& operator>>(QByteArray& arr, Rational& c)
 {
-    int p = arr.indexOf(Rational::getSeparator());
-    p = arr.indexOf(Rational::getSeparator(),p+1);
+    int p = arr.indexOf(Rational::SEPARATOR);
+    p = arr.indexOf(Rational::SEPARATOR,p+1);
     if (p > 0)
     {
         c = Rational(arr.left(p));

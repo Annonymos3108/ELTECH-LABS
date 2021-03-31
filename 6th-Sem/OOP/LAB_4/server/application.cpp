@@ -1,4 +1,6 @@
 #include "application.h"
+#include "polinom.h"
+#include "common.h"
 
 TApplication::TApplication(int argc, char *argv[])
             : QCoreApplication(argc,argv)
@@ -28,12 +30,22 @@ void TApplication::recieve(QByteArray msg)
             answer<<QString().setNum(VALUE_ANSWER);
             answer += s;
             break;
+        case ROOTS_REQUEST:
+            s += p.CalculateRoots();
+            answer<<QString().setNum(ROOTS_ANSWER)<<s;
+            break;
         case PRINT_CLASSIC_REQUEST:
             p.setPrintMode(EPrintModeClassic);
             s<<p;
             answer<<QString().setNum(PRINT_ANSWER)<<s;
             break;
+        case PRINT_CANONIC_REQUEST:
+            p.setPrintMode(EprintModeCanonical);
+            s<<p;
+            answer<<QString().setNum(PRINT_ANSWER)<<s;
+            break;
         default: return;
+
     }
     comm->send(QByteArray().append(answer));
 }

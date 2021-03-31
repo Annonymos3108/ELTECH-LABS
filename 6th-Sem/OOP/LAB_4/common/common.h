@@ -10,6 +10,8 @@ enum messages
     PRINT_CLASSIC_REQUEST,
     PRINT_CANONIC_REQUEST,
     PRINT_ANSWER,
+    ROOTS_REQUEST,
+    ROOTS_ANSWER,
 };
 
 extern const QChar separator;

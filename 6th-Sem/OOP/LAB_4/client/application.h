@@ -12,7 +12,7 @@ class TApplication : public QApplication
     Q_OBJECT
 
     TCommunicator *comm;
-    Interface    *interface;
+    TInterface    *interface;
 
 public:
     TApplication(int, char**);
