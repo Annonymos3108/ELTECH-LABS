@@ -26,8 +26,6 @@ class TInterface : public QWidget
 
     QLabel *output;
 
-//    friend QString& operator<< (QString&,const QString&);
-
 public:
     TInterface(QWidget *parent = 0);
     ~TInterface();
