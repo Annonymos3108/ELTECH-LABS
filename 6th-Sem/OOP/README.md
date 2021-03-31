@@ -17,6 +17,9 @@ $ make -f makefile
 
 [LAB_2](./LAB_2)
 
+
 Для осталных работ понадобиться `Qt Creator` версии не ниже 5.12.10 с компильятором `MinGW 7.3.0 64-bit` для `Windows`, или `GCC` (`GNU Compiler Collection`)  для `GNU/Linux` и `MacOS`.
 
 [LAB_3](./LAB_3)
+
+[LAB_4](./LAB_4)
