@@ -2,10 +2,11 @@
 #define MODEL_H
 
 #include <QObject>
+#include <QThread>
 
 #include "eventtypes.h"
 
-class Model : public QObject
+class Model : public QThread
 {
     Q_OBJECT
         //параметры
@@ -21,6 +22,13 @@ class Model : public QObject
         void paramRequest();
         void stateRequest();
 
+        //выполняется в отдельном потоке, в фоне
+        void run();
+        void loadEnginer();
+        void enginerCheck();
+        void enginerDiagnostic(int PC);
+        void enginerRepair(int PC);
+
     public:
         Model();
 
@@ -29,6 +37,8 @@ class Model : public QObject
 
     public slots:
         void recieveModelEvent(Events);
+
+        
 
 };
 
