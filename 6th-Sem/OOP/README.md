@@ -23,3 +23,5 @@ $ make -f makefile
 [LAB_3](./LAB_3)
 
 [LAB_4](./LAB_4)
+
+[LAB_5](./LAB_5)
