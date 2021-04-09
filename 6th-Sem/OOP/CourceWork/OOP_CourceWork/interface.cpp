@@ -6,22 +6,23 @@
 Interface::Interface(QWidget *parent)
     : QWidget(parent)
 {
-    setFixedSize(150,120);
+    setFixedSize(300,120);
+    setWindowTitle("Computing center");
 
     paramWindow   = nullptr;
     stateWindow   = nullptr;
     controlWindow = nullptr;
 
     pbtn = new QPushButton("Параметры",this);
-    pbtn->setGeometry(15,10,120,30);
+    pbtn->setGeometry(40,10,220,30);
     connect(pbtn,SIGNAL(pressed()),this,SLOT(openParamWindow()));
 
     sbtn = new QPushButton("Состояние",this);
-    sbtn->setGeometry(15,45,120,30);
+    sbtn->setGeometry(40,45,220,30);
     connect(sbtn,SIGNAL(pressed()),this,SLOT(openStateWindow()));
 
     cbtn = new QPushButton("Управление",this);
-    cbtn->setGeometry(15,80,120,30);
+    cbtn->setGeometry(40,80,220,30);
     connect(cbtn,SIGNAL(pressed()),this,SLOT(openControlWindow()));
 }
 

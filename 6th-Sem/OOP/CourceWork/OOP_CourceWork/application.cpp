@@ -8,6 +8,7 @@ Application::Application(int argc, char** argv) :
     interface->show();
 
     model = new Model();
+    model->start();
 
     connect(interface,SIGNAL(sendInterfaceEvent(TEvents)),
             model,SLOT(recieveModelEvent(TEvents)));

@@ -4,16 +4,16 @@ ControlWindow::ControlWindow(QWidget *parent) :
     QWidget(parent)
 {
     setAttribute(Qt::WA_DeleteOnClose,true);
-    setFixedSize(200,130);
+    setFixedSize(300,85);
     setWindowTitle("Управление");
 
     b1 = new QPushButton("Сброс",this);
-    b1->setGeometry(10,10,180,20);
+    b1->setGeometry(40,10,220,30);
     connect(b1,SIGNAL(pressed()),this,SLOT(controlEvent()));
 
     //b2 = new QPushButton("Одиночное событие",this);
     b2 = new QPushButton("Сломать произвольный ПК",this);
-    b2->setGeometry(10,40,180,20);
+    b2->setGeometry(40,45,220,30);
     connect(b2,SIGNAL(pressed()),this,SLOT(controlEvent()));
 }
 
