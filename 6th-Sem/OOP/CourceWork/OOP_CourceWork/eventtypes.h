@@ -18,12 +18,8 @@ enum EEvents
 struct Events
 {
     EEvents type;
-    struct
-    {
-        ParamData  p;
-        StateData  s;
-    } data;
-
+    ParamData  p;
+    StateData  s;
     Events(EEvents t) { type = t; }
 };
 

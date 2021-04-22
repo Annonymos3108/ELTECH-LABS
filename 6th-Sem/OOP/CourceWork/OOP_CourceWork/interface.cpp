@@ -39,11 +39,11 @@ void Interface::recieveInterfaceEvent(Events msg)
     {
         case PARAMMESSAGE:
             if (paramWindow != nullptr)
-                paramWindow->setCurrentParams(msg.data.p);
+                paramWindow->setCurrentParams(msg.p);
             break;
         case STATEMESSAGE:
             if (stateWindow != nullptr)
-                stateWindow->setCurrentState(msg.data.s);
+                stateWindow->setCurrentState(msg.s);
             break;
         default: break;
     }

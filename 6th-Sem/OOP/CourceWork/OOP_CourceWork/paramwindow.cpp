@@ -76,7 +76,7 @@ void ParamWindow::setModelParam()
     pd.checkPeriod = checkPeriod->value();
     pd.diagnosticsTime = diagnosticsTime->value();
     pd.repairTime = repairTime->value();
-    msg.data.p = pd;
+    msg.p = pd;
     emit sendParamMessage(msg);
 }
 

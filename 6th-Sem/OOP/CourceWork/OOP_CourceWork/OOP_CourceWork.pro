@@ -21,6 +21,7 @@ RC_ICONS += com.ico
 SOURCES += \
     application.cpp \
     controlwindow.cpp \
+    enginer.cpp \
     main.cpp \
     interface.cpp \
     model.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
 HEADERS += \
     application.h \
     controlwindow.h \
+    enginer.h \
     eventtypes.h \
     interface.h \
     model.h \

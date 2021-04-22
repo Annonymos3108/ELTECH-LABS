@@ -10,10 +10,10 @@ Application::Application(int argc, char** argv) :
     model = new Model();
     model->start();
 
-    connect(interface,SIGNAL(sendInterfaceEvent(TEvents)),
-            model,SLOT(recieveModelEvent(TEvents)));
-    connect(model,SIGNAL(sendModelEvent(TEvents)),
-            interface,SLOT(recieveInterfaceEvent(TEvents)));
+    connect(interface,SIGNAL(sendInterfaceEvent(Events)),
+            model,SLOT(recieveModelEvent(Events)));
+    connect(model,SIGNAL(sendModelEvent(Events)),
+            interface,SLOT(recieveInterfaceEvent(Events)));
 }
 
 Application::~Application()

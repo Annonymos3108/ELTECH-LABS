@@ -23,7 +23,7 @@ class Model : public QThread
         void stateRequest();
 
         //выполняется в отдельном потоке, в фоне
-        void run();
+        void run() override;
         void loadEnginer();
         void enginerCheck();
         void enginerDiagnostic(int PC);

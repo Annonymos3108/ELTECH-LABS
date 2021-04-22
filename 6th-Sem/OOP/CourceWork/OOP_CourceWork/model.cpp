@@ -3,15 +3,12 @@
 #include <random>
 #include <chrono>
 
-#include <thread>
-#include <mutex>
-
 ParamData Model::defaultParameters = {0.5,5,1,7};
-StateData Model::defaultState      = {"Работает",
-                                      "Работает",
-                                      "Работает",
-                                      "Работает",
-                                      "Работает"};
+StateData Model::defaultState      = {QString("Работает"),
+                                      QString("Работает"),
+                                      QString("Работает"),
+                                      QString("Работает"),
+                                      QString("Работает")};
 
 Model::Model() : QThread()
 {
@@ -26,7 +23,7 @@ void Model::recieveModelEvent(Events msg)
             paramRequest();
             break;
         case PARAMMESSAGE:
-            parameters = msg.data.p;
+            parameters = msg.p;
             break;
         case STATEREQUEST:
             stateRequest();
@@ -126,14 +123,14 @@ void Model::tact()
 void Model::paramRequest()
 {
     Events msg(PARAMMESSAGE);
-    msg.data.p = parameters;
+    msg.p = parameters;
     emit sendModelEvent(msg);
 }
 
 void Model::stateRequest()
 {
     Events msg(STATEMESSAGE);
-    msg.data.s = state;
+    msg.s = state;
     emit sendModelEvent(msg);
 }
 
