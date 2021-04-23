@@ -8,6 +8,7 @@ class DrawPoly
     int count;
 public:
     DrawPoly(int);
+    ~DrawPoly() = default;
     void draw(QPainter*,QRect,QColor);
 };
 
