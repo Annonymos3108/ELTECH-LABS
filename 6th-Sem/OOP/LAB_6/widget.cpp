@@ -23,13 +23,6 @@ void Widget::paintEvent(QPaintEvent *event)
     p.begin(this);
     s->draw(&p,rect(),ui->ColorCB->currentText());
     p.end();
-
-    /*
-    QPainter painter(this); // Создаём объект отрисовщика
-    // Устанавливаем кисть абриса
-    painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
-    painter.setBrush(QBrush(ui->ColorCB->currentText(), Qt::SolidPattern));
-    painter.drawEllipse(100, 50, 150, 150);*/
 }
 
 void Widget::on_DrawButton_clicked()
