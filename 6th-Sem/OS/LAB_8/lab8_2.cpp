@@ -10,7 +10,7 @@
 #include <fcntl.h>
 #include <mqueue.h>
 
-int       BUFF_SIZE    = 32;
+int       BUFF_SIZE    = 10000;
 bool      flag         = false;
 char      QUEUE_NAME[] = {"/my_sel_queue"};
 pthread_t threadID;
@@ -48,8 +48,8 @@ int main() {
     struct mq_attr attr;
 
     attr.mq_flags   = 0;
-    attr.mq_maxmsg  = 10;
-    attr.mq_msgsize = BUFF_SIZE;
+    attr.mq_maxmsg  = 50;
+    attr.mq_msgsize = BUFF_SIZE; //10.000
     attr.mq_curmsgs = 0;
 
     qd = mq_open(QUEUE_NAME, O_CREAT | O_RDONLY | O_NONBLOCK, 0644, &attr);
@@ -58,6 +58,12 @@ int main() {
         printf("\nOpen error: %s\n", strerror(errno));
         return 0;
     }
+
+    mq_getattr(qd, &attr);
+    printf("Maximum # of messages on queue:   %ld\n", attr.mq_maxmsg);
+    printf("Maximum message size:             %ld\n", attr.mq_msgsize);
+
+
 
     int res = pthread_create(&threadID, NULL, Receiver, NULL);
     if (res != 0) {
