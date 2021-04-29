@@ -21,20 +21,20 @@ StateWindow::StateWindow(QWidget *parent) :
     statePC2 = new QLabel(this);
     statePC2->setGeometry(80,60,130,20);
 
-    labelPC1 = new QLabel("3 ПК:",this);
-    labelPC1->setGeometry(10,85,50,20);
-    statePC1 = new QLabel(this);
-    statePC1->setGeometry(80,85,130,20);
-
-    labelPC3 = new QLabel("4 ПК:",this);
-    labelPC3->setGeometry(10,110,50,20);
+    labelPC3 = new QLabel("3 ПК:",this);
+    labelPC3->setGeometry(10,85,50,20);
     statePC3 = new QLabel(this);
-    statePC3->setGeometry(80,110,130,20);
+    statePC3->setGeometry(80,85,130,20);
 
-    labelPC1 = new QLabel("5 ПК:",this);
-    labelPC1->setGeometry(10,135,50,20);
-    statePC1 = new QLabel(this);
-    statePC1->setGeometry(80,135,130,20);
+    labelPC4 = new QLabel("4 ПК:",this);
+    labelPC4->setGeometry(10,110,50,20);
+    statePC4 = new QLabel(this);
+    statePC4->setGeometry(80,110,130,20);
+
+    labelPC5 = new QLabel("5 ПК:",this);
+    labelPC5->setGeometry(10,135,50,20);
+    statePC5 = new QLabel(this);
+    statePC5->setGeometry(80,135,130,20);
 }
 
 StateWindow::~StateWindow()
@@ -59,6 +59,7 @@ void StateWindow::setCurrentState(const StateData& s)
     statePC3->setText(s.statePC3);
     statePC4->setText(s.statePC4);
     statePC5->setText(s.statePC5);
+    repaint();
 }
 
 void StateWindow::closeEvent(QCloseEvent* event)
