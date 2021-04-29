@@ -1,43 +1,55 @@
 #include "enginer.h"
-/*
+#include "windows.h"
+
 Enginer::Enginer() : QObject()
 {
-    data = nullptr;
 }
 
-void Enginer::recieveModelEvent(Events msg)
+void Enginer::setParamsAndState(StateData state, ParamData parameters)
 {
-    switch (msg.type)
-    {
-        case PARAMREQUEST:
-            paramRequest();
-            break;
-        case PARAMMESSAGE:
-            parameters = msg.p;
-            break;
-        case STATEREQUEST:
-            stateRequest();
-            break;
-        case RESET:
-            init();
-            paramRequest();
-            stateRequest();
-            break;
-        case TACT:
-            tact();
-            stateRequest();
-            break;
-        default: break;
-    }
+    this->state = state;
+    this->parameters = parameters;
 }
 
 void Enginer::run()
 {
-    while (true)
+   enginerCheck();
+}
+
+void Enginer::recieveEnginerEvent(Events msg)
+{
+    switch (msg.type)
     {
+    case PARAMREQUEST:
+        paramRequest();
+        break;
+    case PARAMMESSAGE:
+        parameters = msg.p;
+        break;
+    case STATEREQUEST:
+        stateRequest();
+        break;
+    case RESET:
         enginerCheck();
-        sleep(parameters.checkPeriod);
+        paramRequest();
+        stateRequest();
+        break;
+    default: break;
     }
+}
+
+void Enginer::paramRequest()
+{
+    Events msg(PARAMMESSAGE);
+    msg.p = parameters;
+    emit sendEnginerEvent(msg);
+}
+
+void Enginer::stateRequest()
+{
+    Events msg(STATEMESSAGE);
+    msg.s = state;
+    emit sendEnginerEvent(msg);
 }
 
 void Enginer::enginerCheck()
@@ -52,6 +64,8 @@ void Enginer::enginerCheck()
         enginerDiagnostic(4);
     if(state.statePC5 == "Не работает")
         enginerDiagnostic(5);
+    Sleep(parameters.checkPeriod);
+    enginerCheck();
 }
 
 void Enginer::enginerDiagnostic(int PC)
@@ -75,7 +89,7 @@ void Enginer::enginerDiagnostic(int PC)
     default:
         break;
     }
-    sleep(parameters.diagnosticsTime);
+    Sleep(parameters.diagnosticsTime);
     enginerRepair(PC);
 }
 
@@ -100,6 +114,7 @@ void Enginer::enginerRepair(int PC)
     default:
         break;
     }
-    sleep(parameters.repairTime);
+    Sleep(parameters.repairTime);
+    enginerCheck();
 }
-*/
+

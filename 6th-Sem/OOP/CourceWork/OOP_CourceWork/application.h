@@ -13,7 +13,7 @@ class Application : public QApplication
 
     Interface  *interface;
     Model      *model;
-   // Enginer    *enginer;
+    Enginer    *enginer;
 
 public:
     Application(int,char**);

@@ -3,26 +3,31 @@
 
 #ifndef ENGINER_H
 #define ENGINER_H
-/*
+
 class Enginer : public QObject
 {
-    Q_OBJECT
-    Events *data;
+	Q_OBJECT
+	StateData state;
+	ParamData parameters;
+
+	void enginerCheck();
+	void enginerDiagnostic(int PC);
+	void enginerRepair(int PC);
+	void paramRequest();
+	void stateRequest();
+
 public:
-    Enginer();
-    ~Enginer();
-
-    void run();
-    void loadEnginer();
-    void enginerCheck();
-    void enginerDiagnostic(int PC);
-    void enginerRepair(int PC);
-
-signals:
-    void sendModelEvent(Events);
+	//*& ссылка на указатель, это позволит изменить исходные
+	//переменные в классе Model (починить сломавшие компьютеры)
+	Enginer();
+	void setParamsAndState(StateData, ParamData);
+protected:
+	void run();
 
 public slots:
-    void recieveModelEvent(Events);
-};*/
+	void recieveEnginerEvent(Events);
+signals:
+	void sendEnginerEvent(Events);
+};
 
 #endif // ENGINER_H

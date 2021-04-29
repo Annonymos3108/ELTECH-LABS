@@ -2,43 +2,34 @@
 #define MODEL_H
 
 #include <QObject>
-#include <QThread>
-
+#include "enginer.h"
 #include "eventtypes.h"
 
-class Model : public QThread
+class Model : public QObject
 {
-    Q_OBJECT
-        //параметры
-        static ParamData defaultParameters;
-        ParamData parameters;
+	Q_OBJECT
+	//параметры
+	static ParamData defaultParameters;
+	ParamData parameters;
 
-        //состояние
-        static StateData defaultState;
-        StateData state;
+	//состояние
+	static StateData defaultState;
+	StateData state;
 
-        void init();
-        void tact();
-        void paramRequest();
-        void stateRequest();
+	void init();
+	void tact();
+	void paramRequest();
+	void stateRequest();
+public:
+	Model(Enginer*);
 
-        //выполняется в отдельном потоке, в фоне
-        void run() override;
-        void loadEnginer();
-        void enginerCheck();
-        void enginerDiagnostic(int PC);
-        void enginerRepair(int PC);
+signals:
+	void sendModelEvent(Events);
 
-    public:
-        Model();
+public slots:
+	void recieveModelEvent(Events);
 
-    signals:
-        void sendModelEvent(Events);
 
-    public slots:
-        void recieveModelEvent(Events);
-
-        
 
 };
 

@@ -2,6 +2,9 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
+#include <windows.h>
+#include <QThread>
+
 
 ParamData Model::defaultParameters = {0.5,5,1,7};
 StateData Model::defaultState      = {QString("Работает"),
@@ -10,9 +13,11 @@ StateData Model::defaultState      = {QString("Работает"),
                                       QString("Работает"),
                                       QString("Работает")};
 
-Model::Model() : QThread()
+Model::Model(Enginer* enginer) : QObject()
 {
-    init();
+    parameters = defaultParameters;
+    state = defaultState;    
+    enginer->setParamsAndState(state, parameters);    
 }
 
 void Model::recieveModelEvent(Events msg)
@@ -47,14 +52,6 @@ void Model::init()
     state = defaultState;
 }
 
-void Model::run()
-{
-    while (true)
-    {
-        enginerCheck();
-        sleep(parameters.checkPeriod);
-    }
-}
 
 void Model::tact()
 {
@@ -82,6 +79,16 @@ void Model::tact()
         do {
             //если все таки сломаем, то выбираем какой именно
             int id = int(abs(rand())%5);
+            //если все не работают
+            if (state.statePC1 == "Не работает" &&
+                state.statePC2 == "Не работает" &&
+                state.statePC3 == "Не работает" &&
+                state.statePC4 == "Не работает" &&
+                state.statePC5 == "Не работает")
+            {
+                //выходим из цикла ибо нечего сломать.
+                break;
+            }
             switch (id) {
                 case 0:
                     //если уже сломанно, пытаемся еще раз выбрать рандомный ПК
@@ -132,67 +139,4 @@ void Model::stateRequest()
     Events msg(STATEMESSAGE);
     msg.s = state;
     emit sendModelEvent(msg);
-}
-
-void Model::enginerCheck()
-{
-    if(state.statePC1 == "Не работает")
-        enginerDiagnostic(1);
-    if(state.statePC2 == "Не работает")
-        enginerDiagnostic(2);
-    if(state.statePC3 == "Не работает")
-        enginerDiagnostic(3);
-    if(state.statePC4 == "Не работает")
-        enginerDiagnostic(4);
-    if(state.statePC5 == "Не работает")
-        enginerDiagnostic(5);
-}
-
-void Model::enginerDiagnostic(int PC)
-{
-    switch (PC) {
-    case 1:
-        state.statePC1 = "Диагностика...";
-        break;
-    case 2:
-        state.statePC2 = "Диагностика...";
-        break;
-    case 3:
-        state.statePC3 = "Диагностика...";
-        break;
-    case 4:
-        state.statePC4 = "Диагностика...";
-        break;
-    case 5:
-        state.statePC5 = "Диагностика...";
-        break;
-    default:
-        break;
-    }
-    sleep(parameters.diagnosticsTime);
-    enginerRepair(PC);
-}
-
-void Model::enginerRepair(int PC)
-{
-    switch (PC) {
-    case 1:
-        state.statePC1 = "Ремонт...";
-        break;
-    case 2:
-        state.statePC2 = "Ремонт...";
-        break;
-    case 3:
-        state.statePC3 = "Ремонт...";
-        break;
-    case 4:
-        state.statePC4 = "Ремонт...";
-        break;
-    case 5:
-        state.statePC5 = "Ремонт...";
-        break;
-    default:
-        break;
-    }
-    sleep(parameters.repairTime);
 }
