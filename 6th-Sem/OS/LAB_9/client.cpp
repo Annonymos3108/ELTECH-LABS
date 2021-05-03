@@ -23,23 +23,23 @@ typedef struct {
     
 args_s arg1;
 int count = 1;
-int clientSocket; // объявить сокет для работы с сервером 
+int clientSocket; 
 
 void sig_handler(int signo)
 {
     printf("SIGPIPE received\n");
 }
 
-void * send_msg(void *arg) //функция передачи запросов()
+void* send_msg(void *arg) 
 {
     args_s *args = (args_s*) arg;
 
-    printf("Поток send_msg начал работу\n"); 
+    printf("Thread SendMsg start...\n"); 
 
-    while(args->flag_send_require == 0) //пока (флаг завершения потока передачи запросов не установлен)
+    while(args->flag_send_require == 0) 
     {
         char sndbuf[256];
-        int len = sprintf(sndbuf, "Message %d", count); // создать запрос
+        int len = sprintf(sndbuf, "Request %d", count); 
 
         int sentcount = sendto(clientSocket, sndbuf, len, 
             0, (const struct sockaddr *) &serverSockAddr, 
@@ -47,32 +47,33 @@ void * send_msg(void *arg) //функция передачи запросов()
         if (sentcount == -1) {
             perror("sendto");
         }else{
-            printf("Send Success, msg num is: %d \n", count);
-            count++;//счетчик, чтобы следить за очередностью запросов и ответов
+            int l = count - 1;
+            printf("Send Success, Request number is: %d\n", l);
+            count++;
         }
-        sleep(1);//запросы посылаем 1 раз в секунду
+        sleep(1);
     }
     pthread_exit((void*)1);
 }
 
-void * accept_answer(void *arg) // функция приема ответов()
+void* accept_answer(void *arg) 
 {
     args_s *args = (args_s*) arg;
     char rcvbuf[256];
     
-    printf("Поток accept_answer начал работу\n"); 
+    printf("Thread AcceptMsg start...\n"); 
 
-    while(args->flag_accept_answer == 0) // пока (флаг завершения потока приема ответов не установлен)
+    while(args->flag_accept_answer == 0) 
     {
         memset(rcvbuf, 0, 256);
         int reccount = recvfrom(clientSocket, rcvbuf, MAXLINE,
-            0, (struct sockaddr *) &serverSockAddr, &serverSockAddrLen); // принять ответ из сокета;
+            0, (struct sockaddr *) &serverSockAddr, &serverSockAddrLen); 
         if (reccount == -1) {
             perror("recvfrom error");
             sleep(1);
         }else{
-            printf("Answer msg number %d, its : ", count);
-            std::cout << rcvbuf << std::endl; //вывод ответа на экран
+            printf("Answer Message number %d, is : ", count);
+            std::cout << rcvbuf << std::endl;
             sleep(1);
         }
     }
@@ -80,14 +81,16 @@ void * accept_answer(void *arg) // функция приема ответов()
 }
 
 
-int main() // основная программа()
+int main() 
 {
+    printf("Lab 9 - Client start...\n"); 
+    printf("Press <ENTER> to stop\n");
 
     signal(SIGPIPE, sig_handler);
 
     int exit = 0, exit1 = 0, exit2 = 0, err = 0;
    
-    clientSocket = socket(AF_INET, SOCK_DGRAM, 0); // создать сокет для работы с сервером;
+    clientSocket = socket(AF_INET, SOCK_DGRAM, 0);
 
     fcntl(clientSocket, F_SETFL, O_NONBLOCK);
 
@@ -99,34 +102,31 @@ int main() // основная программа()
     if(err != 0)
     {
         perror("pthread_create");   
-    } //             создать поток передачи запросов;
+    } 
 
     err = pthread_create(&AcceptMsg, NULL, accept_answer, &arg1);
     if(err != 0)
     {
         perror("pthread_create");
-    } // создать поток приема ответов;
+    } 
 
-    printf("Программа начала работу\n"); 
 
-    printf("Программа ждет нажатия клавиши\n");
+    getchar();
 
-    getchar(); // ждать нажатия клавиши;
-
-    printf("Клавиша нажата\n"); 
+    printf("Stop...\n"); 
 
     arg1.flag_accept_answer = 1;
     arg1.flag_send_require = 1;
 
     pthread_join(SendMsg, (void**)&exit1);
-    printf("Поток send_require закончил работу\n"); 
+    printf("Thread SendMsg end...\n"); 
     
     pthread_join(AcceptMsg, (void**)&exit2);
-    printf("Поток accept_answer закончил работу\n"); 
+    printf("Thread AcceptMsg end...\n"); 
 
-    close(clientSocket); // закрыть сокет;
+    close(clientSocket);
 
-    printf("Программа закончила работу\n"); 
+    printf("Lab 9 - Client end success.\n"); 
 
     return 0;
 }

@@ -27,56 +27,54 @@ char rcvbuf[MAXLINE];
 
 void sig_handler(int signo)
 {
-    printf("SIGPIPE received\n");
+    printf("\n\nSIGPIPE is gotten");
+    printf("\nClient is offline");
+    printf("\nPress <ENTER> to stop");
+    fflush(stdout);
 }
 
-void * accept_and_send(void *arg) // функция приема запросов()
+void * accept_and_send(void *arg) 
 {
-    int k = 0, res= 0;
+    int k = 0, res= 0, se=2, s;
     socklen_t serverAddrlen = sizeof(serverSockAddr);
     socklen_t clinetAddrlen = sizeof(clientSockAddr);
     args_s *args = (args_s*) arg;
     addrinfo *result;
     char sndbuf[MAXLINE];
 
-    printf("Поток Accept and send начал работу\n"); 
+    printf("Thread AcceptAndSend start...\n"); 
 
     while(args->flag != 1) 
     {
-        res = recvfrom(serverSocket, rcvbuf, MAXLINE,
+        s = recvfrom(serverSocket, rcvbuf, MAXLINE,
             0, (struct sockaddr *) &clientSockAddr, 
-            &clinetAddrlen); //   принять запрос из сокета;
-        if (res == -1) {
+            &clinetAddrlen);
+        if (s == -1) {
             perror("recvfrom");
             sleep(1);
        
         }else{
-            std::cout << "Accept is ok, number of request is: " << rcvbuf << std::endl;
-            res = getaddrinfo("localhost", NULL, NULL, &result);
-            if (res != 0) {
-                fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(res));
-                exit(EXIT_FAILURE);
-            }
+            std::cout << "Accepted Message is: " << rcvbuf << std::endl;
             
-            res = result->ai_protocol;
-            freeaddrinfo(result);
-
-            int len = sprintf(sndbuf, "%d", res);
+            int len = sprintf(sndbuf, "%d", se++);
             int sentcount = sendto(serverSocket, sndbuf, len, 
-                0, (struct sockaddr *) &clientSockAddr, clinetAddrlen); //         передать ответ в сокет;
+                0, (struct sockaddr *) &clientSockAddr, clinetAddrlen); 
             if (sentcount == -1) {
                 perror("send error");
             }else{
                 sleep(1);
-                std::cout << "Send is ok, number of request is: " << rcvbuf << ", its values is: " << sndbuf << std::endl;
+                std::cout << " Answer of: " << rcvbuf << ", is: " << sndbuf << std::endl;
             }
         }        
     }
     pthread_exit((void*)1);
 }
 
-int main() // основная программа()
+int main() 
 {
+    printf("Lab 9 - Server start...\n"); 
+    printf("Press <ENTER> to stop\n");
+    
     args_s arg1;
     signal(SIGPIPE, sig_handler);
     int exit = 0, err = 0;
@@ -89,8 +87,6 @@ int main() // основная программа()
     serverSockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     bind(serverSocket, (struct sockaddr*)&serverSockAddr, sizeof(serverSockAddr));
-
-    printf("Программа начала работу\n"); 
     
     err = pthread_create(&AcceptAndSend, NULL, accept_and_send, &arg1);
     if(err != 0)
@@ -98,18 +94,16 @@ int main() // основная программа()
         perror("pthread_create");
     }    
 
-    printf("Программа ждет нажатия клавиши\n");
+    getchar(); 
 
-    getchar(); // ждать нажатия клавиши;
-
-    printf("Клавиша нажата\n"); 
+    printf("Stop...\n"); 
     
     arg1.flag = 1;
 
     pthread_join(AcceptAndSend, (void**)&exit);
-    printf("Поток AcceptAndSend закончил работу\n");
+    printf("Thread AcceptAndSend end...\n");
 
     close(serverSocket);
-    printf("Программа закончила работу\n");
+    printf("Lab 9 - Server end success.\n");
     return 0;
 }
