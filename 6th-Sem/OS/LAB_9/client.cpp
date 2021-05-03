@@ -15,7 +15,7 @@
 #include <arpa/inet.h>
 #include <signal.h>
 
-using namespace std;
+#define MAXLINE 256
 
  //   объявить идентификатор потока установления соединения;
  //   объявить идентификатор потока передачи запросов;
@@ -42,22 +42,24 @@ void sig_handler(int signo)
     printf("SIGPIPE received\n");
 }
 
-void * send_require(void *arg) //функция передачи запросов()
+void * send_msg(void *arg) //функция передачи запросов()
 {
     args_s *args = (args_s*) arg;
 
-    printf("Поток send_require начал работу\n"); 
+    printf("Поток send_msg начал работу\n"); 
 
     while(args->flag_send_require == 0) //пока (флаг завершения потока передачи запросов не установлен)
     {
         char sndbuf[256];
-        int len = sprintf(sndbuf, "request %d", count); // создать запрос
+        int len = sprintf(sndbuf, "Message %d", count); // создать запрос
 
-        int sentcount = send(clientSocket, sndbuf, len, 0); // передаем запрос
+        int sentcount = sendto(clientSocket, sndbuf, len, 
+            MSG_CONFIRM, (const struct sockaddr *) &clientSockAddr, 
+            sizeof(clientSockAddr));
         if (sentcount == -1) {
-            perror("send error");
+            perror("sendto");
         }else{
-            printf("SEND IS OK, number of request is: %d \n", count);
+            printf("Send Success, msg num is: %d \n", count);
             count++;//счетчик, чтобы следить за очередностью запросов и ответов
         }
         sleep(1);//запросы посылаем 1 раз в секунду
@@ -69,23 +71,21 @@ void * accept_answer(void *arg) // функция приема ответов()
 {
     args_s *args = (args_s*) arg;
     char rcvbuf[256];
+    int len = sizeof(clientSockAddr);
     
     printf("Поток accept_answer начал работу\n"); 
 
     while(args->flag_accept_answer == 0) // пока (флаг завершения потока приема ответов не установлен)
     {
         memset(rcvbuf, 0, 256);
-        int reccount = recv(clientSocket, rcvbuf, 256, 0); // принять ответ из сокета;
+        int reccount = recvfrom(clientSocket, (char *)rcvbuf, MAXLINE,
+            MSG_WAITALL, (struct sockaddr *) &clientSockAddr, (socklen_t *) &len); // принять ответ из сокета;
         if (reccount == -1) {
             perror("recv error");
             sleep(1);
-        }else if (reccount == 0) {
-            //разъединение
-            printf("Lost connection\n");
-            sleep(1);
         }else{
-            printf("Answer number %d, its : ", count);
-            cout << rcvbuf << endl; //вывод ответа на экран
+            printf("Answer msg number %d, its : ", count);
+            std::cout << rcvbuf << std::endl; //вывод ответа на экран
             sleep(1);
         }
     }
@@ -100,7 +100,7 @@ int main() // основная программа()
 
     int exit = 0, exit1 = 0, exit2 = 0, err = 0;
    
-    clientSocket = socket(AF_INET, SOCK_STREAM, 0); // создать сокет для работы с сервером;
+    clientSocket = socket(AF_INET, SOCK_DGRAM, 0); // создать сокет для работы с сервером;
 
     fcntl(clientSocket, F_SETFL, O_NONBLOCK);
 
@@ -108,7 +108,7 @@ int main() // основная программа()
     clientSockAddr.sin_port = htons(7000);
     clientSockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-    err = pthread_create(&id_send_require, NULL, send_require, &arg1);
+    err = pthread_create(&id_send_require, NULL, send_msg, &arg1);
     if(err != 0)
     {
         perror("pthread_create");   
@@ -130,7 +130,6 @@ int main() // основная программа()
 
     arg1.flag_accept_answer = 1;
     arg1.flag_send_require = 1;
-    arg1.flag_set_connection = 1;
 
     pthread_join(id_send_require, (void**)&exit1);
     printf("Поток send_require закончил работу\n"); 
@@ -138,7 +137,6 @@ int main() // основная программа()
     pthread_join(id_accept_answer, (void**)&exit2);
     printf("Поток accept_answer закончил работу\n"); 
 
-    shutdown(clientSocket, 2);  //     закрыть соединение с сервером;
     close(clientSocket); // закрыть сокет;
 
     printf("Программа закончила работу\n"); 
