@@ -13,11 +13,12 @@ StateData Model::defaultState      = {QString("Работает"),
                                       QString("Работает"),
                                       QString("Работает")};
 
-Model::Model(Enginer* enginer) : QObject()
+Model::Model(Enginer* enginer_) : QObject()
 {
     parameters = defaultParameters;
-    state = defaultState;    
-    enginer->setParamsAndState(state, parameters);    
+    state = defaultState;  
+    enginer = enginer_;
+    enginer->setParamsAndState(state, parameters);
 }
 
 void Model::recieveModelEvent(Events msg)
@@ -33,6 +34,9 @@ void Model::recieveModelEvent(Events msg)
         case STATEREQUEST:
             stateRequest();
             break;
+        case STATEMESSAGE:
+            state = msg.s;
+            stateRequest();
         case RESET:
             init();
             paramRequest();
@@ -125,6 +129,7 @@ void Model::tact()
             break;
         }while (true);
     }
+    enginer->setParamsAndState(state, parameters);
 }
 
 void Model::paramRequest()

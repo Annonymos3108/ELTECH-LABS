@@ -11,18 +11,19 @@ Application::Application(int argc, char** argv) :
 
     model = new Model(enginer);
 
-    connect(interface,SIGNAL(sendInterfaceEvent(Events)),
-            model,SLOT(recieveModelEvent(Events)));
-    connect(model,SIGNAL(sendModelEvent(Events)),
-            interface,SLOT(recieveInterfaceEvent(Events)));
-    connect(interface, SIGNAL(sendInterfaceEvent(Events)),
-            enginer, SLOT(receiveEnginerEvent(Events)));
-    connect(enginer, SIGNAL(sendEnginerEvent(Events)),
-            interface, SLOT(receiveInterfaceEvent(Events)));
-
     //создаем поток
     QThread* thread = new QThread;
     enginer->moveToThread(thread);
+
+
+    connect(thread, SIGNAL(started()), enginer, SLOT(run()));
+    connect(enginer, SIGNAL(finished()), thread, SLOT(terminate()));
+    connect(interface,SIGNAL(sendInterfaceEvent(Events)),
+            model,SLOT(recieveModelEvent(Events))); 
+    connect(model,SIGNAL(sendModelEvent(Events)),
+            interface,SLOT(recieveInterfaceEvent(Events)));
+    connect(enginer, SIGNAL(sendEnginerEvent(Events)),
+            model, SLOT(recieveModelEvent(Events)));
     thread->start();
 }
 

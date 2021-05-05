@@ -11,6 +11,7 @@ class Model : public QObject
 	//параметры
 	static ParamData defaultParameters;
 	ParamData parameters;
+	Enginer* enginer;
 
 	//состояние
 	static StateData defaultState;
