@@ -6,17 +6,12 @@ Enginer::Enginer() : QObject()
 {
 }
 
-void Enginer::setParamsAndState(StateData state, ParamData parameters)
-{
-    this->state = state;
-    this->parameters = parameters;
-}
-
-
 void Enginer::run()
 {
    int s;
    while(true) {
+        paramRequest();
+        stateRequest();
         s = enginerCheck();
         qDebug() << state.statePC1;
         qDebug() << state.statePC2;
@@ -55,6 +50,7 @@ void Enginer::run()
 
             Sleep(parameters.repairTime*1000);
             enginerFix(s);
+            stateMessage();
             qDebug() << "Diag and Check";
         }
    }
@@ -65,6 +61,42 @@ void Enginer::stateMessage()
     Events msg(STATEMESSAGE);
     msg.s = state;
     emit sendEnginerEvent(msg);
+}
+
+void Enginer::stateRequest()
+{
+    Events msg(STATEREQUEST);
+    emit sendEnginerEvent(msg);
+}
+
+void Enginer::paramRequest()
+{
+    Events msg(PARAMREQUEST);
+    emit sendEnginerEvent(msg);
+}
+
+void Enginer::setParamsAndState(StateData state, ParamData parameters)
+{
+    this->state = state;
+    this->parameters = parameters;
+}
+
+void Enginer::receiveEnginerEvent(Events msg)
+{
+    switch (msg.type)
+    {
+        case PARAMMESSAGE:
+            parameters = msg.p;
+            break;
+        case STATEMESSAGE:
+            state = msg.s;
+            break;
+        case RESET:
+            paramRequest();
+            stateRequest();
+            break;
+        default: break;
+    }
 }
 
 int Enginer::enginerCheck()

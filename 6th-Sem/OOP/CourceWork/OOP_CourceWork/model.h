@@ -30,8 +30,6 @@ signals:
 public slots:
 	void recieveModelEvent(Events);
 
-
-
 };
 
 #endif // MODEL_H

@@ -129,7 +129,7 @@ void Model::tact()
             break;
         }while (true);
     }
-    enginer->setParamsAndState(state, parameters);
+    //enginer->setParamsAndState(state, parameters);
 }
 
 void Model::paramRequest()

@@ -19,6 +19,7 @@ class Enginer : public QObject
 	void stateRequest();
     void stateMessage();
 
+
 public:
 	//*& ссылка на указатель, это позволит изменить исходные
 	//переменные в классе Model (починить сломавшие компьютеры)
@@ -27,11 +28,14 @@ public:
 protected:
     //void run();
 
+signals:
+    void sendEnginerEvent(Events);
+    void finished();
+
 public slots:
     void run();
-signals:
-	void sendEnginerEvent(Events);
-    void finished();
+    void receiveEnginerEvent(Events);
+
 };
 
 #endif // ENGINER_H

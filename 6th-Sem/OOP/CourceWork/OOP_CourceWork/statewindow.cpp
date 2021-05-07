@@ -59,7 +59,7 @@ void StateWindow::setCurrentState(const StateData& s)
     statePC3->setText(s.statePC3);
     statePC4->setText(s.statePC4);
     statePC5->setText(s.statePC5);
-    repaint();
+    //repaint();
 }
 
 void StateWindow::closeEvent(QCloseEvent* event)
