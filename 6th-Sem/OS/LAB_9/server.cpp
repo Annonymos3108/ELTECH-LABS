@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <pthread.h>
 #include <fcntl.h>
 #include <sys/socket.h>
@@ -14,7 +13,6 @@
 int serverSocket, clientSocket;
 sockaddr_in serverSockAddr, clientSockAddr;
 
-std::vector<std::string> msglist;
 pthread_t AcceptAndSend;
 
 typedef struct {
