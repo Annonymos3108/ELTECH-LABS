@@ -8,28 +8,20 @@ Application::Application(int argc, char** argv) :
     interface->show();
 
     enginer = new Enginer();
-
     model = new Model(enginer);
 
-    //создаем поток
-    QThread* thread = new QThread;
-
-
-    connect(thread, SIGNAL(started()), enginer, SLOT(run()));
-    connect(enginer, SIGNAL(finished()), thread, SLOT(terminate()));
-
     connect(interface,SIGNAL(sendInterfaceEvent(Events)),
-            model,SLOT(recieveModelEvent(Events))); 
+            model,SLOT(recieveModelEvent(Events)));
     connect(model,SIGNAL(sendModelEvent(Events)),
             interface,SLOT(recieveInterfaceEvent(Events)));
 
-    connect(enginer, SIGNAL(sendEnginerEvent(Events)),
-            model, SLOT(recieveModelEvent(Events)), Qt::DirectConnection);
-    connect(model, SIGNAL(sendModelEvent(Events)),
-            enginer, SLOT(recieveEnginerEvent(Events)), Qt::DirectConnection);
+    connect(interface,SIGNAL(sendInterfaceEvent(Events)),
+            enginer,SLOT(receiveEnginerEvent(Events)));
 
-    enginer->moveToThread(thread);
-    thread->start();
+    connect(enginer, SIGNAL(sendEnginerEvent(Events)),
+            model, SLOT(recieveModelEvent(Events)));
+    connect(model, SIGNAL(sendModelEvent(Events)),
+            enginer, SLOT(receiveEnginerEvent(Events)));
 }
 
 

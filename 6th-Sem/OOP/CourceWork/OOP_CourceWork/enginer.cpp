@@ -4,8 +4,10 @@
 
 Enginer::Enginer() : QObject()
 {
+    setEnginerState(NOTBUSY);
 }
 
+/*
 void Enginer::run()
 {
    int s;
@@ -55,13 +57,7 @@ void Enginer::run()
         }
    }
 }
-
-void Enginer::stateMessage()
-{
-    Events msg(STATEMESSAGE);
-    msg.s = state;
-    emit sendEnginerEvent(msg);
-}
+*/
 
 void Enginer::stateRequest()
 {
@@ -75,22 +71,110 @@ void Enginer::paramRequest()
     emit sendEnginerEvent(msg);
 }
 
+/*
 void Enginer::setParamsAndState(StateData state, ParamData parameters)
 {
     this->state = state;
     this->parameters = parameters;
+}
+*/
+
+EnginerState Enginer::getEnginerState()
+{
+    return enginerState;
+}
+
+void Enginer::setEnginerState(EnginerState s)
+{
+    enginerState = s;
+}
+
+void Enginer::dbg() {
+    qDebug() << state.statePC1;
+    qDebug() << state.statePC2;
+    qDebug() << state.statePC3;
+    qDebug() << state.statePC4;
+    qDebug() << state.statePC5;
+    qDebug() << "ckeckPeriod     = " << parameters.checkPeriod;
+    qDebug() << "diagnosticsTime = " << parameters.diagnosticsTime;
+    qDebug() << "repairTime      = " << parameters.repairTime;
+    qDebug() << "";
 }
 
 void Enginer::receiveEnginerEvent(Events msg)
 {
     switch (msg.type)
     {
+        case CHECK: {
+            state = msg.s;
+            parameters = msg.p;
+            int s = enginerCheck();
+
+            qDebug() << "CHECK";
+            dbg();
+
+            Events msg(ENGINERSTATEMESSAGE);
+            msg.s = state;
+            msg.PC = s;
+            if (s == 0) setEnginerState(NOTBUSY);
+            else if (s >=1 && s <= 5) setEnginerState(CHECKWORK);
+            emit sendEnginerEvent(msg);
+            break;
+        }
+        case DIAG:
+        {
+            setEnginerState(DIAGWORK);
+            state = msg.s;
+            parameters = msg.p;
+
+            enginerDiagnostic(msg.PC);
+
+            qDebug() << "DAIG";
+            dbg();
+
+            Events msg2(ENGINERSTATEMESSAGE);
+            msg2.s = state;
+            msg2.PC = msg.PC;
+            emit sendEnginerEvent(msg2);
+            break;
+        }
+        case REPAIR:
+        {
+            setEnginerState(REPAIRWORK);
+            state = msg.s;
+            parameters = msg.p;
+
+            enginerRepair(msg.PC);
+
+            qDebug() << "REPAIR";
+            dbg();
+
+            Events msg2(ENGINERSTATEMESSAGE);
+            msg2.s = state;
+            msg2.PC = msg.PC;
+            emit sendEnginerEvent(msg2);
+            break;
+        }
+        case FIX: {
+            state = msg.s;
+            enginerFix(msg.PC);
+
+            qDebug() << "FIX";
+            dbg();
+            Events msg2(ENGINERSTATEMESSAGE);
+            msg2.s = state;
+            msg2.PC = msg.PC;
+            setEnginerState(NOTBUSY);
+            emit sendEnginerEvent(msg2);
+            break;
+        }
         case PARAMMESSAGE:
             parameters = msg.p;
             break;
-        case STATEMESSAGE:
+        case STATEMESSAGE: {
             state = msg.s;
             break;
+        }
         case RESET:
             paramRequest();
             stateRequest();
@@ -114,7 +198,7 @@ int Enginer::enginerCheck()
     return 0;
 }
 
-void Enginer::enginerDiagnostic(int PC)
+void Enginer::enginerDiagnostic(quint16 PC)
 {
     switch (PC) {
     case 1:
@@ -137,7 +221,7 @@ void Enginer::enginerDiagnostic(int PC)
     }
 }
 
-void Enginer::enginerRepair(int PC)
+void Enginer::enginerRepair(quint16 PC)
 {
     switch (PC) {
     case 1:
@@ -160,7 +244,7 @@ void Enginer::enginerRepair(int PC)
     }
 }
 
-void Enginer::enginerFix(int PC)
+void Enginer::enginerFix(quint16 PC)
 {
     switch (PC) {
     case 1:

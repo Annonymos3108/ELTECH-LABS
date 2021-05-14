@@ -2,6 +2,7 @@
 #define MODEL_H
 
 #include <QObject>
+#include <QTimer>
 #include "enginer.h"
 #include "eventtypes.h"
 
@@ -11,7 +12,11 @@ class Model : public QObject
 	//параметры
 	static ParamData defaultParameters;
 	ParamData parameters;
-	Enginer* enginer;
+    Enginer* enginer;
+
+    QTimer *timer;
+    std::vector<quint32> paramsCount;
+    quint16 PC;
 
 	//состояние
 	static StateData defaultState;
@@ -21,14 +26,21 @@ class Model : public QObject
 	void tact();
 	void paramRequest();
 	void stateRequest();
+
+
+    //void SetEnginerState();
 public:
-	Model(Enginer*);
+    Model(Enginer*);
 
 signals:
 	void sendModelEvent(Events);
 
 public slots:
 	void recieveModelEvent(Events);
+    void SayEnginerToCheck();
+    void SayEnginerToDiag();
+    void SayEnginerToRepair();
+    void SayEnginerToFix();
 
 };
 

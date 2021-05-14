@@ -11,20 +11,26 @@ class Enginer : public QObject
     StateData state;
     ParamData parameters;
 
+    EnginerState enginerState;
+
     int enginerCheck();
-    void enginerDiagnostic(int PC);
-    void enginerRepair(int PC);
-    void enginerFix(int PC);
-	void paramRequest();
+    void enginerDiagnostic(quint16 PC);
+    void enginerRepair(quint16 PC);
+    void enginerFix(quint16 PC);
+
+    void paramRequest();
 	void stateRequest();
     void stateMessage();
 
 
 public:
-	//*& ссылка на указатель, это позволит изменить исходные
-	//переменные в классе Model (починить сломавшие компьютеры)
+	//*& СЃСЃС‹Р»РєР° РЅР° СѓРєР°Р·Р°С‚РµР»СЊ, СЌС‚Рѕ РїРѕР·РІРѕР»РёС‚ РёР·РјРµРЅРёС‚СЊ РёСЃС…РѕРґРЅС‹Рµ
+	//РїРµСЂРµРјРµРЅРЅС‹Рµ РІ РєР»Р°СЃСЃРµ Model (РїРѕС‡РёРЅРёС‚СЊ СЃР»РѕРјР°РІС€РёРµ РєРѕРјРїСЊСЋС‚РµСЂС‹)
 	Enginer();
-    void setParamsAndState(StateData, ParamData);
+    //void setParamsAndState(StateData, ParamData);
+    EnginerState getEnginerState();
+    void setEnginerState(EnginerState);
+    void dbg();
 protected:
     //void run();
 
@@ -33,8 +39,9 @@ signals:
     void finished();
 
 public slots:
-    void run();
     void receiveEnginerEvent(Events);
+    //void run();
+
 
 };
 

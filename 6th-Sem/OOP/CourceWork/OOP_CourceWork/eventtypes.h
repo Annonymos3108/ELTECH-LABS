@@ -6,7 +6,12 @@
 
 enum EEvents
 {
-    CLIENTNO = 1,
+    CHECK = 1,
+    DIAG,
+    REPAIR,
+    FIX,
+    ENGINERSTATEMESSAGE,
+    ENGINERDIAGMSG,
     PARAMREQUEST,
     PARAMMESSAGE,
     STATEREQUEST,
@@ -20,7 +25,15 @@ struct Events
     EEvents type;
     ParamData  p;
     StateData  s;
+    quint16 PC;
     Events(EEvents t) { type = t; }
+};
+
+enum EnginerState {
+    CHECKWORK = 1,
+    DIAGWORK,
+    REPAIRWORK,
+    NOTBUSY,
 };
 
 #endif // EVENTTYPES_H
