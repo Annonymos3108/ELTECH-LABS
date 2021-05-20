@@ -27,7 +27,7 @@ public:
 	//*& ссылка на указатель, это позволит изменить исходные
 	//переменные в классе Model (починить сломавшие компьютеры)
 	Enginer();
-    //void setParamsAndState(StateData, ParamData);
+    void setParamsAndState(StateData, ParamData);
     EnginerState getEnginerState();
     void setEnginerState(EnginerState);
     void dbg();

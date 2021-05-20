@@ -10,6 +10,7 @@ struct StateData
     QString statePC3;
     QString statePC4;
     QString statePC5;
+    QString enginerState;
 };
 
 #endif // STATEDATA_H

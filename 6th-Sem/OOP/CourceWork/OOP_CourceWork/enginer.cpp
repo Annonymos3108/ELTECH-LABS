@@ -7,57 +7,11 @@ Enginer::Enginer() : QObject()
     setEnginerState(NOTBUSY);
 }
 
-/*
-void Enginer::run()
+void Enginer::setParamsAndState(StateData state, ParamData parameters)
 {
-   int s;
-   while(true) {
-        paramRequest();
-        stateRequest();
-        s = enginerCheck();
-        qDebug() << state.statePC1;
-        qDebug() << state.statePC2;
-        qDebug() << state.statePC3;
-        qDebug() << state.statePC4;
-        qDebug() << state.statePC5;
-        qDebug() << parameters.checkPeriod;
-        qDebug() << "";
-        Sleep(parameters.checkPeriod*1000);
-        if (s == 0) {
-            continue;
-        }
-        else {
-            enginerDiagnostic(s);
-            stateMessage();
-
-            qDebug() << state.statePC1;
-            qDebug() << state.statePC2;
-            qDebug() << state.statePC3;
-            qDebug() << state.statePC4;
-            qDebug() << state.statePC5;
-            qDebug() << parameters.diagnosticsTime;
-            qDebug() << "";
-
-            Sleep(parameters.diagnosticsTime*1000);
-            enginerRepair(s);
-            stateMessage();
-
-            qDebug() << state.statePC1;
-            qDebug() << state.statePC2;
-            qDebug() << state.statePC3;
-            qDebug() << state.statePC4;
-            qDebug() << state.statePC5;
-            qDebug() << parameters.checkPeriod;
-            qDebug() << "";
-
-            Sleep(parameters.repairTime*1000);
-            enginerFix(s);
-            stateMessage();
-            qDebug() << "Diag and Check";
-        }
-   }
+    this->state = state;
+    this->parameters = parameters;
 }
-*/
 
 void Enginer::stateRequest()
 {
@@ -71,13 +25,6 @@ void Enginer::paramRequest()
     emit sendEnginerEvent(msg);
 }
 
-/*
-void Enginer::setParamsAndState(StateData state, ParamData parameters)
-{
-    this->state = state;
-    this->parameters = parameters;
-}
-*/
 
 EnginerState Enginer::getEnginerState()
 {
@@ -116,8 +63,14 @@ void Enginer::receiveEnginerEvent(Events msg)
             Events msg(ENGINERSTATEMESSAGE);
             msg.s = state;
             msg.PC = s;
-            if (s == 0) setEnginerState(NOTBUSY);
-            else if (s >=1 && s <= 5) setEnginerState(CHECKWORK);
+            if (s == 0) {
+                setEnginerState(NOTBUSY);
+                msg.s.enginerState = "Проверяет ПК с задданым периудом";
+            }
+            else if (s >=1 && s <= 5){
+                setEnginerState(CHECKWORK);
+                msg.s.enginerState = "Диагностирует и ремонтирует ПК";
+            }
             emit sendEnginerEvent(msg);
             break;
         }
@@ -165,6 +118,7 @@ void Enginer::receiveEnginerEvent(Events msg)
             msg2.s = state;
             msg2.PC = msg.PC;
             setEnginerState(NOTBUSY);
+            msg.s.enginerState = "Проверяет ПК с задданым периудом";
             emit sendEnginerEvent(msg2);
             break;
         }

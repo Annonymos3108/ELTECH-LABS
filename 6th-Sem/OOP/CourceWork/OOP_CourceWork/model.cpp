@@ -12,7 +12,8 @@ StateData Model::defaultState      = {QString("Работает"),
                                       QString("Работает"),
                                       QString("Работает"),
                                       QString("Работает"),
-                                      QString("Работает")};
+                                      QString("Работает"),
+                                      QString("Проверяет ПК с задданым периудом")};
 
 Model::Model(Enginer* enginer_) : QObject(), timer(new QTimer()), paramsCount(4)
 {
@@ -78,6 +79,7 @@ void Model::init()
 {
     parameters = defaultParameters;
     state = defaultState;
+    enginer->setParamsAndState(state, parameters);
 }
 
 

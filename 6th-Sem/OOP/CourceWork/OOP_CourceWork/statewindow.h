@@ -22,6 +22,8 @@ Q_OBJECT
     QLabel *statePC3;
     QLabel *statePC4;
     QLabel *statePC5;
+    QLabel *labelEnginer;
+    QLabel *enginerState;
 
 public:
     StateWindow(QWidget *parent = 0);

@@ -5,7 +5,7 @@ StateWindow::StateWindow(QWidget *parent) :
     QWidget(parent)
 {
     setAttribute(Qt::WA_DeleteOnClose,true);
-    setFixedSize(280,180);
+    setFixedSize(280,210);
     setWindowTitle("Состояние");
 
     stateLabel = new QLabel("Состояние:",this);
@@ -35,6 +35,11 @@ StateWindow::StateWindow(QWidget *parent) :
     labelPC5->setGeometry(10,135,50,20);
     statePC5 = new QLabel(this);
     statePC5->setGeometry(80,135,130,20);
+
+    labelEnginer = new QLabel("Состояние инжинера:", this);
+    labelEnginer->setGeometry(10,160,160,20);
+    enginerState = new QLabel(this);
+    enginerState->setGeometry(40,180,230,20);
 }
 
 StateWindow::~StateWindow()
@@ -50,6 +55,8 @@ StateWindow::~StateWindow()
     delete statePC3;
     delete statePC4;
     delete statePC5;
+    delete labelEnginer;
+    delete enginerState;
 }
 
 void StateWindow::setCurrentState(const StateData& s)
@@ -59,6 +66,7 @@ void StateWindow::setCurrentState(const StateData& s)
     statePC3->setText(s.statePC3);
     statePC4->setText(s.statePC4);
     statePC5->setText(s.statePC5);
+    enginerState->setText(s.enginerState);
     //repaint();
 }
 
