@@ -13,6 +13,7 @@ class ControlWindow;
 
 class Interface : public QWidget
 {
+private:
     Q_OBJECT
 
     ParamWindow   *paramWindow;
@@ -30,22 +31,19 @@ public:
 protected:
     void closeEvent(QCloseEvent*);
 
+signals:
+    void sendInterfaceEvent(Events);
+
 public slots:
     void paramWindowClosed();
     void stateWindowClosed();
     void controlWindowClosed();
-
-public slots:
     void recieveInterfaceEvent(Events);
 
 private slots:
     void openParamWindow();
     void openStateWindow();
     void openControlWindow();
-
-signals:
-    void sendInterfaceEvent(Events);
-
 };
 
 #endif // INTERFACE_H

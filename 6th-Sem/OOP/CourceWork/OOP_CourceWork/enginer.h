@@ -3,10 +3,10 @@
 
 #include <QObject>
 #include "eventtypes.h"
-#include <atomic>
 
 class Enginer : public QObject
 {
+private:
 	Q_OBJECT
     StateData state;
     ParamData parameters;
@@ -24,15 +24,11 @@ class Enginer : public QObject
 
 
 public:
-	//*& ссылка на указатель, это позволит изменить исходные
-	//переменные в классе Model (починить сломавшие компьютеры)
 	Enginer();
     void setParamsAndState(StateData, ParamData);
     EnginerState getEnginerState();
     void setEnginerState(EnginerState);
     void dbg();
-protected:
-    //void run();
 
 signals:
     void sendEnginerEvent(Events);
@@ -40,9 +36,6 @@ signals:
 
 public slots:
     void receiveEnginerEvent(Events);
-    //void run();
-
-
 };
 
 #endif // ENGINER_H

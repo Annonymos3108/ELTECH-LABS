@@ -9,7 +9,8 @@
 
 class StateWindow : public QWidget
 {
-Q_OBJECT
+private:
+    Q_OBJECT
 
     QLabel *stateLabel;
     QLabel *labelPC1;

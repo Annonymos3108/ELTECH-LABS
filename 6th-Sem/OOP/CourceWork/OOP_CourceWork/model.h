@@ -8,29 +8,30 @@
 
 class Model : public QObject
 {
+private:
 	Q_OBJECT
-	//параметры
+
 	static ParamData defaultParameters;
-	ParamData parameters;
+    static StateData defaultState;
+
+    ParamData parameters;
+    StateData state;
+
     Enginer* enginer;
 
     QTimer *timer;
+
     std::vector<quint32> paramsCount;
     quint16 PC;
 
-	//состояние
-	static StateData defaultState;
-	StateData state;
-
-	void init();
+    void init();
 	void tact();
 	void paramRequest();
 	void stateRequest();
 
-
-    //void SetEnginerState();
 public:
     Model(Enginer*);
+    ~Model();
 
 signals:
 	void sendModelEvent(Events);

@@ -31,6 +31,11 @@ Model::Model(Enginer* enginer_) : QObject(), timer(new QTimer()), paramsCount(4)
 
 }
 
+Model::~Model()
+{
+    delete timer;
+}
+
 void Model::recieveModelEvent(Events msg)
 {
     switch (msg.type)

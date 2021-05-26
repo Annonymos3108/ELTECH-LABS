@@ -11,18 +11,19 @@
 
 class ParamWindow : public QWidget
 {
-Q_OBJECT
+private:
+    Q_OBJECT
 
     QLabel *l1;
     QLabel *l2;
     QLabel *l3;
     QLabel *l4;
-    QDoubleSpinBox *crashProbability;
-    QSpinBox *checkPeriod;
-    QSpinBox *diagnosticsTime;
-    QSpinBox *repairTime;
-    QPushButton *apply_btn;
-    QPushButton *cancel_btn;
+    QDoubleSpinBox  *crashProbability;
+    QSpinBox        *checkPeriod;
+    QSpinBox        *diagnosticsTime;
+    QSpinBox        *repairTime;
+    QPushButton     *apply_btn;
+    QPushButton     *cancel_btn;
 
 public:
     ParamWindow(QWidget *parent = 0);
