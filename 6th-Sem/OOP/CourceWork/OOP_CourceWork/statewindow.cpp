@@ -36,7 +36,7 @@ StateWindow::StateWindow(QWidget *parent) :
     statePC5 = new QLabel(this);
     statePC5->setGeometry(80,135,130,20);
 
-    labelEnginer = new QLabel("Состояние инжинера:", this);
+    labelEnginer = new QLabel("Состояние инженера:", this);
     labelEnginer->setGeometry(10,160,160,20);
     enginerState = new QLabel(this);
     enginerState->setGeometry(40,180,230,20);
